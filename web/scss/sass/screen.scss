@@ -1,0 +1,92 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+#mainpage{
+    //background-color: red;
+    background-image: url(../../images/homebg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    z-index: -1;
+}
+
+body{
+    background-color: #D0D0D0;
+}
+
+.register{
+    background:rgba(255,255,255,0.8);
+    border-radius: 25px;
+    text-align: center;
+    position:relative;
+    top:130px;
+    right:60px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width:inherit;
+    
+    input{
+        margin: 5px;
+        padding-right: 5px;
+        height: 40px;
+    }
+    
+    button{
+        margin: 5px;
+        padding-right: 5px;
+        height: 40px;
+    }
+}
+
+.section1{
+    position:relative;
+    top:130px;
+    left:20px;
+    text-align: left;
+    
+    h1{
+        font-size: 70px;
+        color: #ffffff;
+    }
+    
+    button{
+        width:inherit;
+        position:relative;
+        top:50px;
+        font-size: 30px;
+        
+    }
+}
+
+#content{
+    background-color: #ffffff;
+    text-align: center !important;
+    
+    input, label, select{
+        margin-top: 5px;
+    }
+    
+    
+    button{
+        //width:200px;
+        margin:20px;
+    }
+}
+
+#profilecontent{
+    background-color: #ffffff;
+    padding:15px;
+}
+
+.pDetails{
+    h4, p{
+        display: inline;
+    }
+}

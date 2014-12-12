@@ -1,0 +1,28 @@
+hello world!
+
+name=cm-sprg
+cd to location
+git branch name
+git push origin <name>
+
+git branch -b <name>
+git checkout <name>
+git status
+git add <file>
+git commit -m "<message>"
+git push origin <name>
+
+//to see the latest commit
+git log
+
+
+git checkout master
+git merge cm-sprg
+>>forgot to pull
+git pull
+>>resolve conflict
+git add --a
+git commit -m "added product management"
+git push
+
+
