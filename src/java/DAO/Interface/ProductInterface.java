@@ -29,6 +29,7 @@ public interface ProductInterface {
     public ArrayList<DvdBean> getAllDvds();
     public ArrayList<MagBean> getAllMags();
     public ProductBean getProductById(int productID);
+        public ProductBean getProductBytitle(String title); 
     public ArrayList<ProductBean> getProductByName(String title);
     public void editProductByTitle(int id, String title);
     public void editProductBySummary(int id, String title);

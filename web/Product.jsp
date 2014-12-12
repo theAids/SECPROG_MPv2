@@ -45,52 +45,49 @@
         ArrayList<Integer> itemsBought;
         ArrayList<OrderBean> customerOrders;
         ArrayList<OrderingBean> orderProducts;
-        
+
         ProductBean product = (ProductBean) session.getAttribute("product");
-        
+
         UserBean user = (UserBean) session.getAttribute("client_user");
         //UserBean user = userIM.getUser("eyjaneh_");
         AccessController acl = (AccessController) session.getAttribute("acl");
-        if(user == null){
+        if (user == null) {
             response.sendRedirect("Unauthorized.jsp");
             return;
-        }   
+        }
         boolean isCustomer = false;
         boolean isBought = false;
-        
+
         CustomerBean c = null;
-        
+
         String type = userIM.getUserType(user);
-        
-        if(type.equals("Customer")){
+
+        if (type.equals("Customer")) {
             isCustomer = true;
             c = userIM.getCustomer(user.getUsername());
             itemsBought = new ArrayList<Integer>();
             customerOrders = orderIM.getCustomerOrder(user.getUserID());
-            
-            for(OrderBean orb: customerOrders){
+
+            for (OrderBean orb : customerOrders) {
                 orderProducts = new ArrayList<OrderingBean>();
                 orderProducts = orderingIM.getOrderByIDProducts(orb.getOrderID());
-                for(OrderingBean ord: orderProducts){
-                    if(!itemsBought.contains(ord.getProductID())){
+                for (OrderingBean ord : orderProducts) {
+                    if (!itemsBought.contains(ord.getProductID())) {
                         itemsBought.add(ord.getProductID());
                     }
-                    
+
                     /*AIDS: NOTE PAKI-FILLUP NA LANG 'YUNG VARIABLE FOR THE PRODUCT */
-                    if(product.getProductID() == ord.getProductID()){
+                    if (product.getProductID() == ord.getProductID()) {
                         isBought = true;
                     }
-                    
-                    
+
                 }
             }
             //System.out.println(c.getbAddress());
         }
-        
-        
-        
+
         //System.out.println("NOT A CUSTOMER");
-        
+
     %>
     <body>
 
@@ -115,7 +112,7 @@
                 </div>
             </div>
         </nav>
-        
+
         <div class="container">
             <div class="jumbotron pDetails">
                 <h3><%=product.getTitle()%></h3>
@@ -125,7 +122,7 @@
                 <p><%=product.getPrice()%>php</p><br><br>
                 <h4>Description</h4><br>
                 <p><%=product.getSummary()%></p>
-                
+
                 <br>
                 <br>
                 <hr>
@@ -137,50 +134,50 @@
                 <div id ="reviewArea">
                     <span id="rmessage"></span>
                     <div id="reviewer">
-                        
-                    <form id="reviewForm" name="reviewForm" method="post" action="review">
-                        <input type="hidden" id="userID" name="userID">
-                        <input type="hidden" id="productID" name="productID">
-                    <textarea id ="review" name ="review" class="form-control" rows="3"></textarea>
-                    <div>&nbsp;</div>
-                    <div class="col-md-3 col-md-offset-9">
-                    <button id ="reviewbtn"type ="submit" class="btn btn-success btn-block">Review</button>
-                    </div>
-                    </form>
+
+                        <form id="reviewForm" name="reviewForm" method="post" action="review">
+                            <input type="hidden" id="userID" name="userID">
+                            <input type="hidden" id="productID" name="productID">
+                            <textarea id ="review" name ="review" class="form-control" rows="3"></textarea>
+                            <div>&nbsp;</div>
+                            <div class="col-md-3 col-md-offset-9">
+                                <button id ="reviewbtn"type ="submit" class="btn btn-success btn-block">Review</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-1.10.min.js"></script>
-
-    <script>
-            function buy(){
-                window.location="Creditcard.jsp";
-            }
-            $(document).ready(function() {
-                $("#userID").val("<%= user.getUserID()%>");
-                /*NOTE: */
-                $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
-                <% if(isBought){ %>
-                    //do nothing... as is
-                <%}else{%>
-                    $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
-                    $("#reviewer").hide();
-                    
-                <%}%>
-                    
-                    alert("HEY");
-                
-            });
-    </script>
-    <!-- Placed at the end of the document so the pages load faster -->
+       
 
 
-</body>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery-1.10.min.js"></script>
+
+        <script>
+                        function buy() {
+                            window.location = "Creditcard.jsp";
+                        }
+                        $(document).ready(function() {
+                            $("#userID").val("<%= user.getUserID()%>");
+                            /*NOTE: */
+                            $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
+            <% if (isBought) { %>
+                            //do nothing... as is
+            <%} else {%>
+                            $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
+                            $("#reviewer").hide();
+
+            <%}%>
+
+                            alert("HEY");
+
+                        });
+        </script>
+        <!-- Placed at the end of the document so the pages load faster -->
+
+
+    </body>
 </html>
 

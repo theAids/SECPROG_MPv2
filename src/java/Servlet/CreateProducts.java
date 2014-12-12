@@ -38,15 +38,15 @@ public class CreateProducts extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       // HttpSession session = request.getSession(false); //to ensure that no new session will be created
+        HttpSession session = request.getSession(false); //to ensure that no new session will be created
         String referer = request.getHeader("Referer");
-        //if (session != null) {
-            //UserBean user = (UserBean) session.getAttribute("client_user");
-            //String clientToken = (String) session.getAttribute("client_token"); //unused
-            //AccessController acl = (AccessController) session.getAttribute("acl"); //unused
-            //UserDAOInterface userIM = new UserDAOImplementation();
-           // String type = userIM.getUserType(user);
-            String type="Magazine";
+        if (session != null) {
+            UserBean user = (UserBean) session.getAttribute("client_user");
+            String clientToken = (String) session.getAttribute("client_token"); //unused
+            AccessController acl = (AccessController) session.getAttribute("acl"); //unused
+            UserDAOInterface userIM = new UserDAOImplementation();
+            String type = userIM.getUserType(user);
+            //String type="Magazine";
             switch (type) {
                 case "Book":
                     response.sendRedirect("BookManagement.jsp");
@@ -74,9 +74,9 @@ public class CreateProducts extends HttpServlet {
                 out.println(request.getHeader("referer"));
 
             }
-        //} else {
-         //   response.sendRedirect(referer); //change this to page of origin
-        //}
+        } else {
+            response.sendRedirect("Unauthorize.jsp"); //change this to page of origin
+        }
 
     }
 
