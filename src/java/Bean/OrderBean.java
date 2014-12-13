@@ -17,6 +17,7 @@ public class OrderBean {
     private int orderID;
     private LocalDateTime orderDate;
     private int userID;
+    private String status;
     
     public LocalDateTime getOrderDate() {
         return orderDate;
@@ -41,6 +42,20 @@ public class OrderBean {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

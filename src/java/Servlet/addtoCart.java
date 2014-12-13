@@ -5,12 +5,10 @@
  */
 package Servlet;
 
-import Bean.BookBean;
-import Bean.CDBean;
-import Bean.DvdBean;
-import Bean.MagBean;
+import Bean.OrderBean;
 import Bean.ProductBean;
-import DAO.Implementation.ProductImplementation;
+import Bean.UserBean;
+import DAO.Implementation.OrderImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -25,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author aids
  */
-@WebServlet(name = "searchItem", urlPatterns = {"/searchItem"})
-public class searchItem extends HttpServlet {
+@WebServlet(name = "addtoCart", urlPatterns = {"/addtoCart"})
+public class addtoCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,41 +37,36 @@ public class searchItem extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        try (PrintWriter out = response.getWriter()) {
 
-        try {
-
-            String search = request.getParameter("search");
             HttpSession session = request.getSession();
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            ProductBean product = (ProductBean) session.getAttribute("product");
 
-            ProductImplementation prodImpl = new ProductImplementation();
-            int i;
+            UserBean user = (UserBean) session.getAttribute("client_user");
 
-            ArrayList<ProductBean> products = new ArrayList<ProductBean>();
-            products = prodImpl.getProductByName(search);
-            
-            
-      
-             for(i=1; i<=products.size(); i++){
-             out.append("<tr>");
-            // out.append("<td>").append(Integer.toString(products.size())).append("</td>");
-             out.append("<td>").append(Integer.toString(i)).append("</td>");
-             out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
-             out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
-             out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
-             if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
-                    }else{
-                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
-                    }
-             out.append("</tr>");          
-             }
-        } finally {
-            out.close();
+            OrderImplementation order = new OrderImplementation();
+
+            ArrayList<OrderBean> purchases = new ArrayList<OrderBean>();
+
+            purchases = order.getCustomerOrder(user.getUserID());
+
+            for (OrderBean bean : purchases) {
+                if (bean.getStatus().equals("cart")) {
+                    session.setAttribute("cart", bean);
+                    response.sendRedirect("Cart.jsp");
+                }
+            }
+
+            OrderBean newOrder = new OrderBean();
+            newOrder.setUserID(user.getUserID());
+            order.addCustomerOrder(newOrder);
+
+            session.setAttribute("cart", newOrder);
+            response.sendRedirect("Cart.jsp");
+
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

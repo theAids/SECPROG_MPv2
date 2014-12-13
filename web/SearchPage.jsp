@@ -97,6 +97,7 @@
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th style="width: 400px">Title</th>
+                                        <th>Category</th>
                                         <th>Price</th>
                                         <th>Status</th>
                                     </tr>

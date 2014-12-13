@@ -39,11 +39,11 @@
                         <div class="col-md-6 col-md-offset-3">
                             <label for="username" class="col-md-3 control-label">Username</label>
                             <div class="col-md-9">
-                                <input type="text" required = "true" pattern="^[a-zA-Z0-9_]{8,30}$" class="form-control" name="username" id="username"/>
+                                <input type="text" required = "true"  class="form-control" name="username" id="username"/>
                             </div>
                             <label for="password" class="col-md-3 control-label">Password</label>
                             <div class="col-md-9">
-                                <input type="password" required = "true"  pattern=".{6,30}" class="form-control" name="password" id="password"/>
+                                <input type="password" required = "true"   class="form-control" name="password" id="password"/>
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success btn-block">Log in</button>

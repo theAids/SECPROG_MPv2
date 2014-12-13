@@ -39,53 +39,54 @@
     </head>
 
     <%
-        UserDAOInterface userIM = new UserDAOImplementation();
-        OrderInterface orderIM = new OrderImplementation();
-        OrderingInterface orderingIM = new OrderingImplementation();
-        ArrayList<Integer> itemsBought;
-        ArrayList<OrderBean> customerOrders;
-        ArrayList<OrderingBean> orderProducts;
+        /*
+         UserDAOInterface userIM = new UserDAOImplementation();
+         OrderInterface orderIM = new OrderImplementation();
+         OrderingInterface orderingIM = new OrderingImplementation();
+         ArrayList<Integer> itemsBought;
+         ArrayList<OrderBean> customerOrders;
+         ArrayList<OrderingBean> orderProducts;*/
 
         ProductBean product = (ProductBean) session.getAttribute("product");
 
-        UserBean user = (UserBean) session.getAttribute("client_user");
-        //UserBean user = userIM.getUser("eyjaneh_");
-        AccessController acl = (AccessController) session.getAttribute("acl");
-        if (user == null) {
-            response.sendRedirect("Unauthorized.jsp");
-            return;
-        }
-        boolean isCustomer = false;
-        boolean isBought = false;
+        /*
+         UserBean user = (UserBean) session.getAttribute("client_user");
+         //UserBean user = userIM.getUser("eyjaneh_");
+         AccessController acl = (AccessController) session.getAttribute("acl");
+         if (user == null) {
+         response.sendRedirect("Unauthorized.jsp");
+         return;
+         }
+         boolean isCustomer = false;
+         boolean isBought = false;
 
-        CustomerBean c = null;
+         CustomerBean c = null;
 
-        String type = userIM.getUserType(user);
+         String type = userIM.getUserType(user);
 
-        if (type.equals("Customer")) {
-            isCustomer = true;
-            c = userIM.getCustomer(user.getUsername());
-            itemsBought = new ArrayList<Integer>();
-            customerOrders = orderIM.getCustomerOrder(user.getUserID());
+         if (type.equals("Customer")) {
+         isCustomer = true;
+         c = userIM.getCustomer(user.getUsername());
+         itemsBought = new ArrayList<Integer>();
+         customerOrders = orderIM.getCustomerOrder(user.getUserID());
 
-            for (OrderBean orb : customerOrders) {
-                orderProducts = new ArrayList<OrderingBean>();
-                orderProducts = orderingIM.getOrderByIDProducts(orb.getOrderID());
-                for (OrderingBean ord : orderProducts) {
-                    if (!itemsBought.contains(ord.getProductID())) {
-                        itemsBought.add(ord.getProductID());
-                    }
+         for (OrderBean orb : customerOrders) {
+         orderProducts = new ArrayList<OrderingBean>();
+         orderProducts = orderingIM.getOrderByIDProducts(orb.getOrderID());
+         for (OrderingBean ord : orderProducts) {
+         if (!itemsBought.contains(ord.getProductID())) {
+         itemsBought.add(ord.getProductID());
+         }
+        
+         if (product.getProductID() == ord.getProductID()) {
+         isBought = true;
+         }
 
-                    /*AIDS: NOTE PAKI-FILLUP NA LANG 'YUNG VARIABLE FOR THE PRODUCT */
-                    if (product.getProductID() == ord.getProductID()) {
-                        isBought = true;
-                    }
-
-                }
-            }
-            //System.out.println(c.getbAddress());
-        }
-
+         }
+         }
+         //System.out.println(c.getbAddress());
+         }
+         */
         //System.out.println("NOT A CUSTOMER");
 
     %>
@@ -126,9 +127,11 @@
                 <br>
                 <br>
                 <hr>
-                <label>Quantity:</label>
-                <input type="number" value="0" style="width: max-content"/>
-                <button onclick="buy()">Buy</button>
+                <form method="POST" action="addtoCart">
+                    <label>Quantity:</label>
+                    <input type="number" value="1" min="1" name="quantity"/>
+                    <input type="submit" value="Add to Cart" class="btn btn-primary"/>
+                </form>
                 <div></div>
                 <label>Review</label>
                 <div id ="reviewArea">
@@ -148,33 +151,12 @@
                 </div>
             </div>
         </div>
-       
+
 
 
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.10.min.js"></script>
-
-        <script>
-                        function buy() {
-                            window.location = "Creditcard.jsp";
-                        }
-                        $(document).ready(function() {
-                            $("#userID").val("<%= user.getUserID()%>");
-                            /*NOTE: */
-                            $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
-            <% if (isBought) { %>
-                            //do nothing... as is
-            <%} else {%>
-                            $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
-                            $("#reviewer").hide();
-
-            <%}%>
-
-                            alert("HEY");
-
-                        });
-        </script>
         <!-- Placed at the end of the document so the pages load faster -->
 
 

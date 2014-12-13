@@ -203,6 +203,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
                 bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
                 beans.add(bean);
             }
             return beans;
@@ -232,6 +233,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
                 bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
                 beans.add(bean);
             }
             return beans;
@@ -253,14 +255,15 @@ public class ProductImplementation implements ProductInterface{
             ArrayList<DvdBean> beans = new ArrayList<DvdBean>();
             while (result.next()) {
                 DvdBean bean = new DvdBean();
-                bean.setProductID(result.getInt("book.productID"));
-                bean.setDirector(result.getString("author"));
+                bean.setProductID(result.getInt("dvd.productID"));
+                bean.setDirector(result.getString("director"));
                 bean.setProductID(result.getInt("product.productID"));
                 bean.setTitle(result.getString("title"));
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
                 bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
                 beans.add(bean);
             }
             return beans;
@@ -282,7 +285,7 @@ public class ProductImplementation implements ProductInterface{
             ArrayList<MagBean> beans = new ArrayList<MagBean>();
             while (result.next()) {
                 MagBean bean = new MagBean();
-                bean.setProductID(result.getInt("book.productID"));
+                bean.setProductID(result.getInt("mag.productID"));
                 bean.setVolNo(result.getInt("volNo"));
                 bean.setIssueNo(result.getInt("issueNo"));
                 bean.setProductID(result.getInt("product.productID"));
@@ -291,6 +294,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
                 bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
                 beans.add(bean);
             }
             return beans;
@@ -320,6 +324,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
                 bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
             }
             return bean;
         } 
@@ -343,17 +348,19 @@ public class ProductImplementation implements ProductInterface{
             ps.setString(2, "%"+title+"%");
  
             ResultSet resultSet = ps.executeQuery();
-            ProductBean bean = new ProductBean();
+            ProductBean bean;
             ArrayList<ProductBean> beans = new ArrayList<ProductBean>();
+            
             while (resultSet.next()) 
             {
+                bean = new ProductBean();
                 bean.setProductID(resultSet.getInt("productID"));
                 bean.setTitle(resultSet.getString("title"));
                 bean.setSummary(resultSet.getString("summary"));
                 bean.setPrice(resultSet.getFloat("price"));
                 bean.setStock(resultSet.getFloat("stock"));
                 bean.setPstatus(resultSet.getString("pstatus"));
-                //bean.setCategoryID(resultSet.getInt("categoryID"));
+                bean.setCategory(resultSet.getString("category"));
                 beans.add(bean);
             }
             return beans;

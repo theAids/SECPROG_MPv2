@@ -32,19 +32,19 @@ public class OrderImplementation implements OrderInterface{
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "INSERT INTO foo_order(orderDate,userID) VALUES (?,?)";
+            String query = "INSERT INTO foo_order(userID) VALUES (?)";
             PreparedStatement prep = connection.prepareStatement(query);
 
             //java.util.Date utilDate = new java.util.Date();
             //java.sql.Timestamp sq = new java.sql.Timestamp(utilDate.getTime());
             //SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
             
-             LocalDateTime ldt  = LocalDateTime.now();
-            Timestamp ts = new Timestamp(ldt.toDate().getTime());
+           //  LocalDateTime ldt  = LocalDateTime.now();
+           // Timestamp ts = new Timestamp(ldt.toDate().getTime());
          
             //prep.setInt(1, bean.getOrderID());
-            prep.setTimestamp(1, ts);
-            prep.setInt(2, bean.getUserID());
+            //prep.setTimestamp(1, ts);
+            prep.setInt(1, bean.getUserID());
 
             prep.executeUpdate();
         } catch (SQLException ex) {
@@ -69,6 +69,7 @@ public class OrderImplementation implements OrderInterface{
                 bean.setOrderID(resultSet.getInt("orderID"));                
                 bean.setOrderDate(new LocalDateTime(resultSet.getTimestamp("orderDate")));
                 bean.setUserID(resultSet.getInt("userID"));
+                bean.setStatus(resultSet.getString("status"));
                
                 beans.add(bean);
             }
@@ -127,6 +128,7 @@ public class OrderImplementation implements OrderInterface{
                 bean.setOrderID(resultSet.getInt("orderID"));
                 bean.setOrderDate(new LocalDateTime(resultSet.getTimestamp("orderDate")));
                 bean.setUserID(resultSet.getInt("userID"));
+                bean.setStatus(resultSet.getString("status"));
                
                 beans.add(bean);
             }

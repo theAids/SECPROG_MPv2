@@ -118,10 +118,11 @@ public class UserDAOImplementation implements UserDAOInterface {
                 */
             }
             connection.close();
+            return u;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return u;
+        return null;
     }
     
     @Override
@@ -234,12 +235,15 @@ public class UserDAOImplementation implements UserDAOInterface {
                 */
                 aUsers.add(u);
             }
+            
             connection.close();
+            return aUsers;
+            
         } catch (SQLException ex) {
             Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aUsers;
+        return null;
     }
     
     public boolean addAdministrativeAccount(UserBean u, String type) {

@@ -59,8 +59,8 @@ public class login extends HttpServlet {
             Hash hashGenerator = new Hash();
             Randomizer randomGenerator = new Randomizer();
 
-            Authenticator authenticator = new Authenticator();
-            loggedInUser = (UserBean) authenticator.login(request, response);
+            Authenticator authenticator = new Authenticator();out.println("HELLO");
+            loggedInUser = (UserBean) authenticator.login(request, response); out.println("HELLO");
 
             /* check if account is locked...*/
             if (loggedInUser != null && loggedInUser.getStatus() == 3) {

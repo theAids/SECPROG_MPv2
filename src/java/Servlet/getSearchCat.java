@@ -56,11 +56,12 @@ public class getSearchCat extends HttpServlet {
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
                     out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                    out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("Available").append("</td>");
+                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
                     }else{
-                        out.append("<td>").append("Unavailable").append("</td>");
+                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
                     }
                     out.append("</tr>");          
                 }
@@ -72,11 +73,12 @@ public class getSearchCat extends HttpServlet {
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
                     out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                    out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("Available").append("</td>");
+                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
                     }else{
-                        out.append("<td>").append("Unavailable").append("</td>");
+                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
                     }
                     out.append("</tr>");          
                 }
@@ -87,11 +89,12 @@ public class getSearchCat extends HttpServlet {
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
                     out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                    out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("Available").append("</td>");
+                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
                     }else{
-                        out.append("<td>").append("Unavailable").append("</td>");
+                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
                     }
                     out.append("</tr>");          
                 }
@@ -102,11 +105,12 @@ public class getSearchCat extends HttpServlet {
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
                     out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                    out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("Available").append("</td>");
+                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
                     }else{
-                        out.append("<td>").append("Unavailable").append("</td>");
+                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
                     }
                     out.append("</tr>");          
                 }

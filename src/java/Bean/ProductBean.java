@@ -20,6 +20,10 @@ public class ProductBean {
     private float stock;
     private String pstatus;
     private String category;
+    
+    public ProductBean(){
+        
+    }
 
     public int getProductID() {
         return productID;
