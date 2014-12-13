@@ -44,7 +44,7 @@
                         <h1>Your  </h1>
                         <h1>online bookshop</h1>
                         <div class="col-md-8 col-md-offset-2">
-                            <button class="btn btn-lg btn-success">Search store</button>
+                            <a class="btn btn-lg btn-success" href="SearchPage.jsp">Search store</a>
                         </div>
                     </div>
 

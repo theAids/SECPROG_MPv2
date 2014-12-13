@@ -156,7 +156,7 @@ public class login extends HttpServlet {
                 }
 
                 //redirect it to somewhere...
-                response.sendRedirect("HomeProfile.jsp");
+                response.sendRedirect("SearchPage.jsp");
             } else {
                 //log
                 response.sendRedirect("Login.jsp");
