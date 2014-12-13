@@ -11,7 +11,7 @@ import DAO.Implementation.SignlogImplementation;
 import DAO.Implementation.UserDAOImplementation;
 import DAO.Interface.SignlogInterface;
 import DAO.Interface.UserDAOInterface;
-import com.sun.istack.logging.Logger;
+//import com.sun.istack.logging.Logger;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
