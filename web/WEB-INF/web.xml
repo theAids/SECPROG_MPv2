@@ -20,6 +20,22 @@
         <servlet-name>deleteMagazines</servlet-name>
         <servlet-class>Servlet.deleteMagazines</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addBook</servlet-name>
+        <servlet-class>Servlet.addBook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addCD</servlet-name>
+        <servlet-class>Servlet.addCD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addDVD</servlet-name>
+        <servlet-class>Servlet.addDVD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteBook</servlet-name>
+        <servlet-class>Servlet.deleteBook</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CreateBook</servlet-name>
         <url-pattern>/CreateBook</url-pattern>
@@ -39,6 +55,22 @@
     <servlet-mapping>
         <servlet-name>deleteMagazines</servlet-name>
         <url-pattern>/deleteMagazines</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addBook</servlet-name>
+        <url-pattern>/addBook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addCD</servlet-name>
+        <url-pattern>/addCD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addDVD</servlet-name>
+        <url-pattern>/addDVD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteBook</servlet-name>
+        <url-pattern>/deleteBook</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
