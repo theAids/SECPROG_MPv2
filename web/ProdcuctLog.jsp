@@ -3,10 +3,7 @@
     Created on : 12 8, 14, 12:06:22 PM
     Author     : kimberly
 --%>
-<%@page import="Bean.ProductLogBean"%>
-<%@page import="DAO.Implementation.ProductlogImplementation"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Bean.ProductBean"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

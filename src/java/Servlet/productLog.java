@@ -66,18 +66,14 @@ public class productLog extends HttpServlet {
        out.println("<thead>");
           out.println("<tr>");
             out.println("<th>Log Date and Timestamp</th>");
-            out.println("<th>User ID</th>");
             out.println("<th>Username</th>");
-            out.println("<th>Product ID</th>");
             out.println("<th>Product Name</th>");
             out.println("<th>Activity</th>"); 
           out.println("</tr>");
           
           out.println("<tr>");
             out.println("<th>Log Date and Timestamp</th>");
-            out.println("<th>User ID</th>");
             out.println("<th>Username</th>");
-            out.println("<th>Product ID</th>");
             out.println("<th>Product Name</th>");
             out.println("<th>Activity</th>"); 
           out.println("</tr>");
