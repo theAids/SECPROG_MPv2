@@ -323,14 +323,10 @@ public class ProductImplementation implements ProductInterface {
             ResultSet resultSet = ps.executeQuery();
             ProductBean bean;
             ArrayList<ProductBean> beans = new ArrayList<ProductBean>();
-<<<<<<< HEAD
             
             while (resultSet.next()) 
             {
                 bean = new ProductBean();
-=======
-            while (resultSet.next()) {
->>>>>>> master
                 bean.setProductID(resultSet.getInt("productID"));
                 bean.setTitle(resultSet.getString("title"));
                 bean.setSummary(resultSet.getString("summary"));
