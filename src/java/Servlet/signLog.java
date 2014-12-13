@@ -55,13 +55,11 @@ public class signLog extends HttpServlet {
        out.println("<thead>");
           out.println("<tr>");
             out.println("<th>Log Date and Timestamp</th>");
-            out.println("<th>User ID</th>");
             out.println("<th>Username</th>");
           out.println("</tr>");
           
           out.println("<tr>");
             out.println("<th>Log Date and Timestamp</th>");
-            out.println("<th>User ID</th>");
             out.println("<th>Username</th>");
           out.println("</tr>");
         out.println("</thead>");
