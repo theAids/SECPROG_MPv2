@@ -103,6 +103,7 @@ CREATE TABLE `foo_order` (
   `orderID` int(11) NOT NULL AUTO_INCREMENT,
   `orderDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `userID` int(11) NOT NULL,
+  `status` varchar(25) NOT NULL DEFAULT 'cart',
   PRIMARY KEY (`orderID`),
   UNIQUE KEY `orderID` (`orderID`),
   KEY `userID` (`userID`),
@@ -142,7 +143,7 @@ CREATE TABLE `foo_user` (
   PRIMARY KEY (`userID`),
   UNIQUE KEY `userID` (`userID`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,6 +152,7 @@ CREATE TABLE `foo_user` (
 
 LOCK TABLES `foo_user` WRITE;
 /*!40000 ALTER TABLE `foo_user` DISABLE KEYS */;
+INSERT INTO `foo_user` VALUES (1,'aidsperez','Adrian','M.','Perez','RrBs5hYd3TaGwLhA39Xb1D2Q0d75hxY7XfisUDgDs1s=','aids@yahoo.com',1,'Customer','Blk 6, Lot 5 Manggahan St. Pasig City 1600 PH','Blk 6, Lot 5 Manggahan St. Pasig City 1600 PH','2014-12-13 17:26:05');
 /*!40000 ALTER TABLE `foo_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-13 19:46:43
+-- Dump completed on 2014-12-14  4:52:50
