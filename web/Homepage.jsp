@@ -31,45 +31,19 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <div class="navbar-form navbar-right">
+                        <a class="btn btn-primary" href="Login.jsp" role="button">Login</a>
                         <a class="btn btn-success" href="Register.jsp" role="button">Sign-up</a>
                     </div>
                 </div><!--/.navbar-collapse -->
             </div>
         </nav>
 
-        <div class="container-fluid" id="mainpage">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="section1">
-                        <h1>Your  </h1>
-                        <h1>online bookshop</h1>
-                        <div class="col-md-8 col-md-offset-2">
-                            <a class="btn btn-lg btn-success" href="SearchPage.jsp">Search store</a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="register">
-                            <h1>Log-in</h1>
-                            <h5>Be Foorb!</h5>
-                            <form class="form-horizontal" role="form" method="post" action="login">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="text" name="username"  id="username" class="form-control" placeholder="username"/>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control" name="password" placeholder="password"/>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success btn-block">Log-in</button>
-                                    </div>
-                            </form>
-
-                        </div>
-                    </div>
-
+        <div class="container" id="mainpage">
+            <div class="section1">
+                <h1>Your  </h1>
+                <h1>online bookshop</h1>
+                <div class="col-md-8 col-md-offset-2">
+                    <a class="btn btn-lg btn-success" href="SearchPage.jsp">Search store</a>
                 </div>
             </div>
         </div>
