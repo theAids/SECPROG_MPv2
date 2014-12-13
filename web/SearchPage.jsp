@@ -105,11 +105,13 @@
         </div>
 
     </div>
+    <!--
     <form class="form-horizontal" name="CreateProductJsp" id = "CreateBookJsp" method="post" action = "CreateProducts">
             <div class="product-choices">
                 <input type="submit" name="CreateBookBtn" id="CreateBookBtn" value="CreateProduct"/>
             </div>
         </form>
+    -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-1.10.min.js"></script>
