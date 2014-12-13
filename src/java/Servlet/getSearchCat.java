@@ -59,9 +59,10 @@ public class getSearchCat extends HttpServlet {
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
+
+                        out.append("<td>").append("<span style='color:#5BC236'>Available</span>").append("</td>");
                     }else{
-                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
+                        out.append("<td>").append("<span style='color:#red'>Unavailable</span>").append("</td>");
                     }
                     out.append("</tr>");          
                 }
@@ -69,16 +70,18 @@ public class getSearchCat extends HttpServlet {
             }else if(cat.equals("Magazines")){
                 ArrayList<MagBean> products = new ArrayList<MagBean>();
                 products = prodImpl.getAllMags();
+                
                 for(i=1; i<=products.size(); i++){
+                    
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
                     out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
+                        out.append("<td>").append("<span style='color:#5BC236'>Available</span>").append("</td>");
                     }else{
-                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
+                        out.append("<td>").append("<span style='color:#red'>Unavailable</span>").append("</td>");
                     }
                     out.append("</tr>");          
                 }
@@ -92,9 +95,11 @@ public class getSearchCat extends HttpServlet {
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
+
+                        out.append("<td>").append("<span style='color:#5BC236'>Available</span>").append("</td>");
                     }else{
-                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
+                        out.append("<td>").append("<span style='color:#red'>Unavailable</span>").append("</td>");
+
                     }
                     out.append("</tr>");          
                 }
@@ -108,9 +113,10 @@ public class getSearchCat extends HttpServlet {
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
-                        out.append("<td>").append("<p style='color:#5BC236'>Available</p>").append("</td>");
+
+                        out.append("<td>").append("<span style='color:#5BC236'>Available</span>").append("</td>");
                     }else{
-                        out.append("<td>").append("<p style='color:red'>Unavailable</p>").append("</td>");
+                        out.append("<td>").append("<span style='color:#red'>Unavailable</span>").append("</td>");
                     }
                     out.append("</tr>");          
                 }

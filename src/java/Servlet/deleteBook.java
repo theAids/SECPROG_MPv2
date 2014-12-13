@@ -57,11 +57,11 @@ public class deleteBook extends HttpServlet {
                 ProductLogBean plb = new ProductLogBean();
                 bb.setTitle(request.getParameter("delBooktitle"));
                 plb.setUserID(user.getUserID());
-                bb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());
+                bb.setProductID(pi.getProductBytitle(bb.getTitle()).getProductID());
                 pb.setProductID(bb.getProductID());
-                plb.setActivity("delete book");
-                pli.addProductLog(user, pb, plb);
+                plb.setActivity("d- Book");
                 pi.deleteBook(bb.getProductID());
+                pli.addProductLog(user, pb, plb);
                 try (PrintWriter out = response.getWriter()) {
                     out.println("deleted successfully");
                     //response.sendRedirect("BookManagement.jsp");

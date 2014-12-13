@@ -49,14 +49,23 @@
 
         ProductBean product = (ProductBean) session.getAttribute("product");
 
+<<<<<<< HEAD
         /*
          UserBean user = (UserBean) session.getAttribute("client_user");
          //UserBean user = userIM.getUser("eyjaneh_");
          AccessController acl = (AccessController) session.getAttribute("acl");
+=======
+        UserBean user = (UserBean) session.getAttribute("client_user");
+        //UserBean user = userIM.getUser("eyjaneh_");
+        AccessController acl = (AccessController) session.getAttribute("acl");
+
+        
+>>>>>>> master
          if (user == null) {
          response.sendRedirect("Unauthorized.jsp");
          return;
          }
+<<<<<<< HEAD
          boolean isCustomer = false;
          boolean isBought = false;
 
@@ -87,6 +96,39 @@
          //System.out.println(c.getbAddress());
          }
          */
+=======
+        boolean isCustomer = false;
+        boolean isBought = false;
+
+        CustomerBean c = null;
+
+        String type = userIM.getUserType(user);
+
+        if (type.equals("Customer")) {
+            isCustomer = true;
+            c = userIM.getCustomer(user.getUsername());
+            itemsBought = new ArrayList<Integer>();
+            customerOrders = orderIM.getCustomerOrder(user.getUserID());
+
+            for (OrderBean orb : customerOrders) {
+                orderProducts = new ArrayList<OrderingBean>();
+                orderProducts = orderingIM.getOrderByIDProducts(orb.getOrderID());
+                for (OrderingBean ord : orderProducts) {
+                    if (!itemsBought.contains(ord.getProductID())) {
+                        itemsBought.add(ord.getProductID());
+                    }
+
+                    /*AIDS: NOTE PAKI-FILLUP NA LANG 'YUNG VARIABLE FOR THE PRODUCT */
+                    if (product.getProductID() == ord.getProductID()) {
+                        isBought = true;
+                    }
+
+                }
+            }
+            //System.out.println(c.getbAddress());
+        }
+
+>>>>>>> master
         //System.out.println("NOT A CUSTOMER");
 
     %>
@@ -97,8 +139,9 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
+
+                <div  class="navbar-collapse collapse" >
+                    <ul class="nav navbar-nav navbar-right menubar">
                         <li><a href="#">Store</a></li>
                         <li><a href="#">Settings</a></li>
                         <li class="dropdown">
@@ -157,6 +200,33 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.10.min.js"></script>
+<<<<<<< HEAD
+=======
+
+        <script>
+
+                    function buy() {
+                        window.location = "Creditcard.jsp";
+                    }
+                    $(document).ready(function () {
+                        $("#userID").val("<%= user.getUserID()%>");
+                        /*NOTE: */
+                        $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
+            <% if (isBought) { %>
+                        //do nothing... as is
+            <%} else {%>
+                        $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
+                        $("#reviewer").hide();
+
+            <%}%>
+
+                        alert("HEY");
+
+                    });
+
+                   
+        </script>
+>>>>>>> master
         <!-- Placed at the end of the document so the pages load faster -->
 
 

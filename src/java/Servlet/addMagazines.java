@@ -60,6 +60,7 @@ public class addMagazines extends HttpServlet {
                 mb.setPrice(Float.parseFloat(request.getParameter("addMagPrice")));
                 mb.setStock(Float.parseFloat(request.getParameter("addMagStock")));
                 mb.setPstatus(request.getParameter("addMagPstatus"));
+                mb.setCategory("Magazine");
                 mb.setVolNo(Integer.parseInt(request.getParameter("addMagVolumeNumber")));
                 mb.setIssueNo(Integer.parseInt(request.getParameter("addMagIssueNumber")));
                 pb.setPrice(mb.getPrice());
@@ -67,7 +68,8 @@ public class addMagazines extends HttpServlet {
                 pb.setStock(mb.getStock());
                 pb.setSummary(mb.getSummary());
                 pb.setTitle(mb.getTitle());
-                plb.setActivity("Added New Magazine");
+                pb.setCategory(mb.getCategory());
+                plb.setActivity("A- Magazine");
                 plb.setUserID(user.getUserID());
                 pi.addProduct(pb);
                 mb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());

@@ -42,18 +42,22 @@ public class Driver {
         //    System.out.println(u.getUsername());
         //}
         UserBean ub= new UserBean();
-        ub.setUserID(2);
+        ub.setUserID(1);
         ProductBean pb =new ProductBean();
-        pb.setProductID(11);
+        pb.setProductID(8);
         DvdBean db=new DvdBean();
-        db.setProductID(9);
-        db.setDirector("liam neeson");
+        //db.setProductID(6);
+        //db.setDirector("liam neeson");
         ProductImplementation pi=new ProductImplementation();
-        pi.addDvd(db);
-       // ProductLogBean plb=new ProductLogBean();
-       // plb.setActivity("added new magazine");
+        pi.deleteBook(pi.getProductByTitle("harry prouy").getProductID());
+        BookBean bb =new BookBean();
+        bb.setProductID(8);
+       // bb.setAuthor("pen");
+        //pi.addBook(bb);
+       //ProductLogBean plb=new ProductLogBean();
+        //plb.setActivity("d-Book");
        // ProductlogInterface pli=new ProductlogImplementation();
-        //pli.addProductLog(ub, pb, plb);
+       // pli.addProductLog(ub, pb, plb);
         
         
       /*  

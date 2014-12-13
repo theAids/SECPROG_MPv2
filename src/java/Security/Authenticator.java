@@ -56,7 +56,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         UserBean u = null;
         int i;
       
-        ArrayList<UserBean> aUsers = userIM.getAllUser();
+        ArrayList<UserBean> aUsers = userIM.getAllUser(); 
       
         userName = hsr.getParameter("username");
         userPassword = hsr.getParameter("password");
