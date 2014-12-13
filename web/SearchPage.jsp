@@ -126,7 +126,6 @@
     <script>
         
         function renderTop(){
-            
         
             if(<%= user%>== null){
                 $(".menubar").hide();
