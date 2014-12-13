@@ -2,11 +2,15 @@
 
 import Bean.BookBean;
 import Bean.CustomerBean;
+import Bean.DvdBean;
 import Bean.ProductBean;
+import Bean.ProductLogBean;
 import Bean.UserBean;
 import DAO.Implementation.ProductImplementation;
+import DAO.Implementation.ProductlogImplementation;
 import DAO.Implementation.SignlogImplementation;
 import DAO.Implementation.UserDAOImplementation;
+import DAO.Interface.ProductlogInterface;
 import DAO.Interface.SignlogInterface;
 import DAO.Interface.UserDAOInterface;
 import Security.Hash;
@@ -34,9 +38,24 @@ public class Driver {
         SignlogInterface signlogIM = new SignlogImplementation();
         ArrayList<UserBean> aUsers = userIM.getAllUser();
         
-        for(UserBean u: aUsers){
-            System.out.println(u.getUsername());
-        }
+        //for(UserBean u: aUsers){
+        //    System.out.println(u.getUsername());
+        //}
+        UserBean ub= new UserBean();
+        ub.setUserID(2);
+        ProductBean pb =new ProductBean();
+        pb.setProductID(11);
+        DvdBean db=new DvdBean();
+        db.setProductID(9);
+        db.setDirector("liam neeson");
+        ProductImplementation pi=new ProductImplementation();
+        pi.addDvd(db);
+       // ProductLogBean plb=new ProductLogBean();
+       // plb.setActivity("added new magazine");
+       // ProductlogInterface pli=new ProductlogImplementation();
+        //pli.addProductLog(ub, pb, plb);
+        
+        
       /*  
         UserBean u = userIM.getUser("reginag_");
         CustomerBean c = userIM.getCustomer("reginag_");

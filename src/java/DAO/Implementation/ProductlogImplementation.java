@@ -49,6 +49,8 @@ public class ProductlogImplementation implements ProductlogInterface{
             //System.out.println(sdf.format(sq));
             prep.setInt(1, ubean.getUserID());
             prep.setInt(2, pbean.getProductID());
+             // Timestamp today = new Timestamp(System.currentTimeMillis());
+            //prep.setTimestamp(3, today);
             prep.setTimestamp(3, ts);
             prep.setString(4, plogbean.getActivity());
 

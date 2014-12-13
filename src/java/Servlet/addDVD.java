@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Servlet;
 
-import Bean.MagBean;
+import Bean.DvdBean;
 import Bean.ProductBean;
 import Bean.ProductLogBean;
 import Bean.UserBean;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author joechua
  */
-public class addMagazines extends HttpServlet {
+public class addDVD extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,7 @@ public class addMagazines extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false); //to ensure that no new session will be created
+         HttpSession session = request.getSession(false); //to ensure that no new session will be created
         String referer = request.getHeader("Referer");
         if (session != null) {
             UserBean user = (UserBean) session.getAttribute("client_user");
@@ -48,35 +49,35 @@ public class addMagazines extends HttpServlet {
             AccessController acl = (AccessController) session.getAttribute("acl"); //unused
             //UserDAOInterface userIM = new UserDAOImplementation();
             // String type = userIM.getUserType(user);
-            if (acl.getADD_MAGAZINE() == 1) {
+            if (acl.getADD_DVD() == 1) {
                 ProductInterface pi = new ProductImplementation();
                 ProductlogInterface pli = new ProductlogImplementation();
                 ProductBean pb = new ProductBean();
-                MagBean mb = new MagBean();
+                DvdBean db = new DvdBean();
                 ProductLogBean plb = new ProductLogBean();
-                mb.setTitle(request.getParameter("addMagtitle"));
-                mb.setSummary(request.getParameter("addMagSummary"));
-                mb.setPrice(Float.parseFloat(request.getParameter("addMagPrice")));
-                mb.setStock(Float.parseFloat(request.getParameter("addMagStock")));
-                mb.setPstatus(Integer.parseInt(request.getParameter("addMagPstatus")));
-                mb.setVolNo(Integer.parseInt(request.getParameter("addMagVolumeNumber")));
-                mb.setIssueNo(Integer.parseInt(request.getParameter("addMagIssueNumber")));
-                pb.setPrice(mb.getPrice());
-                pb.setPstatus(mb.getPstatus());
-                pb.setStock(mb.getStock());
-                pb.setSummary(mb.getSummary());
-                pb.setTitle(mb.getTitle());
-                plb.setActivity("Added New Magazine");
+                db.setTitle(request.getParameter("addDVDtitle"));
+                db.setSummary(request.getParameter("addDVDSummary"));
+                db.setPrice(Float.parseFloat(request.getParameter("addDVDPrice")));
+                db.setStock(Float.parseFloat(request.getParameter("addDVDStock")));
+                db.setPstatus(Integer.parseInt(request.getParameter("addDVDPstatus")));
+                db.setDirector(request.getParameter("addDVDDirector"));
+                pb.setPrice(db.getPrice());
+                pb.setPstatus(db.getPstatus());
+                pb.setStock(db.getStock());
+                pb.setSummary(db.getSummary());
+                pb.setTitle(db.getTitle());
+                plb.setActivity("Added New DVD");
                 plb.setUserID(user.getUserID());
                 pi.addProduct(pb);
-                mb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());
-                pb.setProductID(mb.getProductID());
-                pi.addMagazine(mb);
+                db.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());
+                pb.setProductID(db.getProductID());
+                pi.addDvd(db);
                 pli.addProductLog(user, pb, plb);
                 try (PrintWriter out = response.getWriter()) {
                     out.println("added successfully");
+                    //response.sendRedirect("DVDManagement.jsp");
                 }
-                response.sendRedirect("MagazineManagement.jsp");
+                
             } else {
                 response.sendRedirect("Unauthorized.jsp");
             }
@@ -88,7 +89,7 @@ public class addMagazines extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            out.println("<h1>Servlet addMagazines at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addDVD at " + request.getContextPath() + "</h1>");
 
         }
     }

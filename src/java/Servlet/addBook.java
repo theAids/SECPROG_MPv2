@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Servlet;
 
-import Bean.MagBean;
+import Bean.BookBean;
 import Bean.ProductBean;
 import Bean.ProductLogBean;
 import Bean.UserBean;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author joechua
  */
-public class addMagazines extends HttpServlet {
+public class addBook extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,35 +49,35 @@ public class addMagazines extends HttpServlet {
             AccessController acl = (AccessController) session.getAttribute("acl"); //unused
             //UserDAOInterface userIM = new UserDAOImplementation();
             // String type = userIM.getUserType(user);
-            if (acl.getADD_MAGAZINE() == 1) {
+            if (acl.getADD_BOOK() == 1) {
                 ProductInterface pi = new ProductImplementation();
                 ProductlogInterface pli = new ProductlogImplementation();
                 ProductBean pb = new ProductBean();
-                MagBean mb = new MagBean();
+                BookBean bb = new BookBean();
                 ProductLogBean plb = new ProductLogBean();
-                mb.setTitle(request.getParameter("addMagtitle"));
-                mb.setSummary(request.getParameter("addMagSummary"));
-                mb.setPrice(Float.parseFloat(request.getParameter("addMagPrice")));
-                mb.setStock(Float.parseFloat(request.getParameter("addMagStock")));
-                mb.setPstatus(Integer.parseInt(request.getParameter("addMagPstatus")));
-                mb.setVolNo(Integer.parseInt(request.getParameter("addMagVolumeNumber")));
-                mb.setIssueNo(Integer.parseInt(request.getParameter("addMagIssueNumber")));
-                pb.setPrice(mb.getPrice());
-                pb.setPstatus(mb.getPstatus());
-                pb.setStock(mb.getStock());
-                pb.setSummary(mb.getSummary());
-                pb.setTitle(mb.getTitle());
-                plb.setActivity("Added New Magazine");
+                bb.setTitle(request.getParameter("addBooktitle"));
+                bb.setSummary(request.getParameter("addBookSummary"));
+                bb.setPrice(Float.parseFloat(request.getParameter("addBookPrice")));
+                bb.setStock(Float.parseFloat(request.getParameter("addBookStock")));
+                bb.setPstatus(Integer.parseInt(request.getParameter("addBookPstatus")));
+                bb.setAuthor(request.getParameter("addBookAuthor"));
+                pb.setPrice(bb.getPrice());
+                pb.setPstatus(bb.getPstatus());
+                pb.setStock(bb.getStock());
+                pb.setSummary(bb.getSummary());
+                pb.setTitle(bb.getTitle());
+                plb.setActivity("Added New Book");
                 plb.setUserID(user.getUserID());
                 pi.addProduct(pb);
-                mb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());
-                pb.setProductID(mb.getProductID());
-                pi.addMagazine(mb);
+                bb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());
+                pb.setProductID(bb.getProductID());
+                pi.addBook(bb);
                 pli.addProductLog(user, pb, plb);
                 try (PrintWriter out = response.getWriter()) {
                     out.println("added successfully");
+                    //response.sendRedirect("BookManagement.jsp");
                 }
-                response.sendRedirect("MagazineManagement.jsp");
+                
             } else {
                 response.sendRedirect("Unauthorized.jsp");
             }
@@ -88,7 +89,7 @@ public class addMagazines extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            out.println("<h1>Servlet addMagazines at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addBook at " + request.getContextPath() + "</h1>");
 
         }
     }

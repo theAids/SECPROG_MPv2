@@ -785,6 +785,35 @@ public class ProductImplementation implements ProductInterface{
         }
         return null;
     }
-
+    public ProductBean getProductBytitle(String title) 
+    {
+        try
+        {
+            dBConnectionFactory = DBConnectionFactory.getInstance();
+            connection = dBConnectionFactory.getConnection();
+            String query = "SELECT * FROM product WHERE title = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, title);
+ 
+            ResultSet result = ps.executeQuery();
+            ProductBean bean = new ProductBean();
+            while (result.next()) 
+            {
+                bean.setProductID(result.getInt("product.productID"));
+                bean.setTitle(result.getString("title"));
+                bean.setSummary(result.getString("summary"));
+                bean.setPrice(result.getFloat("price"));
+                bean.setStock(result.getFloat("stock"));
+                bean.setPstatus(result.getInt("pstatus"));
+            }
+            return bean;
+        } 
+         
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
 }
