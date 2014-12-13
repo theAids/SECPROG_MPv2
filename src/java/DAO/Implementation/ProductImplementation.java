@@ -50,7 +50,7 @@ public class ProductImplementation implements ProductInterface{
             prep.setString(2, bean.getSummary());
             prep.setFloat(3, bean.getPrice());
             prep.setFloat(4, bean.getStock());
-            prep.setInt(5, bean.getPstatus()); //check availability(low stock)
+            prep.setString(5, bean.getPstatus()); //check availability(low stock)
              
             prep.executeUpdate();
             /*
@@ -173,7 +173,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 beans.add(bean);
             }
             return beans;
@@ -202,7 +202,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 beans.add(bean);
             }
             return beans;
@@ -231,7 +231,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 beans.add(bean);
             }
             return beans;
@@ -260,7 +260,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 beans.add(bean);
             }
             return beans;
@@ -290,7 +290,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 beans.add(bean);
             }
             return beans;
@@ -319,7 +319,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
             }
             return bean;
         } 
@@ -352,7 +352,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(resultSet.getString("summary"));
                 bean.setPrice(resultSet.getFloat("price"));
                 bean.setStock(resultSet.getFloat("stock"));
-                bean.setPstatus(resultSet.getInt("pstatus"));
+                bean.setPstatus(resultSet.getString("pstatus"));
                 //bean.setCategoryID(resultSet.getInt("categoryID"));
                 beans.add(bean);
             }
@@ -657,7 +657,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 bean.setCategory(result.getString("category"));
             }
             return bean;
@@ -689,7 +689,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 bean.setCategory(result.getString("category"));
                 
             return bean;
@@ -718,7 +718,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 bean.setCategory(result.getString("category"));
                 
             return bean;
@@ -747,7 +747,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 bean.setCategory(result.getString("category"));
                 
             return bean;
@@ -777,7 +777,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
                 bean.setCategory(result.getString("category"));
                 
             return bean;
@@ -805,7 +805,7 @@ public class ProductImplementation implements ProductInterface{
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
                 bean.setStock(result.getFloat("stock"));
-                bean.setPstatus(result.getInt("pstatus"));
+                bean.setPstatus(result.getString("pstatus"));
             }
             return bean;
         } 

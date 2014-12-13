@@ -59,7 +59,7 @@ public class addMagazines extends HttpServlet {
                 mb.setSummary(request.getParameter("addMagSummary"));
                 mb.setPrice(Float.parseFloat(request.getParameter("addMagPrice")));
                 mb.setStock(Float.parseFloat(request.getParameter("addMagStock")));
-                mb.setPstatus(Integer.parseInt(request.getParameter("addMagPstatus")));
+                mb.setPstatus(request.getParameter("addMagPstatus"));
                 mb.setVolNo(Integer.parseInt(request.getParameter("addMagVolumeNumber")));
                 mb.setIssueNo(Integer.parseInt(request.getParameter("addMagIssueNumber")));
                 pb.setPrice(mb.getPrice());

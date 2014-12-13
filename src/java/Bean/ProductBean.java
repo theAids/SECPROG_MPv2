@@ -18,7 +18,7 @@ public class ProductBean {
     private String summary;
     private float price;
     private float stock;
-    private int pstatus;
+    private String pstatus;
     private String category;
 
     public int getProductID() {
@@ -61,11 +61,11 @@ public class ProductBean {
         this.stock = stock;
     }
 
-    public int getPstatus() {
+    public String getPstatus() {
         return pstatus;
     }
 
-    public void setPstatus(int pstatus) {
+    public void setPstatus(String pstatus) {
         this.pstatus = pstatus;
     }
 

@@ -60,7 +60,7 @@ public class addDVD extends HttpServlet {
                 db.setSummary(request.getParameter("addDVDSummary"));
                 db.setPrice(Float.parseFloat(request.getParameter("addDVDPrice")));
                 db.setStock(Float.parseFloat(request.getParameter("addDVDStock")));
-                db.setPstatus(Integer.parseInt(request.getParameter("addDVDPstatus")));
+                db.setPstatus(request.getParameter("addDVDPstatus"));
                 db.setDirector(request.getParameter("addDVDDirector"));
                 pb.setPrice(db.getPrice());
                 pb.setPstatus(db.getPstatus());

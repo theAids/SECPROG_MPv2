@@ -60,7 +60,7 @@ public class addBook extends HttpServlet {
                 bb.setSummary(request.getParameter("addBookSummary"));
                 bb.setPrice(Float.parseFloat(request.getParameter("addBookPrice")));
                 bb.setStock(Float.parseFloat(request.getParameter("addBookStock")));
-                bb.setPstatus(Integer.parseInt(request.getParameter("addBookPstatus")));
+                bb.setPstatus(request.getParameter("addBookPstatus"));
                 bb.setAuthor(request.getParameter("addBookAuthor"));
                 pb.setPrice(bb.getPrice());
                 pb.setPstatus(bb.getPstatus());

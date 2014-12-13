@@ -61,7 +61,7 @@ public class addCD extends HttpServlet {
                 cb.setSummary(request.getParameter("addCDSummary"));
                 cb.setPrice(Float.parseFloat(request.getParameter("addCDPrice")));
                 cb.setStock(Float.parseFloat(request.getParameter("addCDStock")));
-                cb.setPstatus(Integer.parseInt(request.getParameter("addCDPstatus")));
+                cb.setPstatus(request.getParameter("addCDPstatus"));
                 cb.setArtist(request.getParameter("addCDArtist"));
                 pb.setPrice(cb.getPrice());
                 pb.setPstatus(cb.getPstatus());
