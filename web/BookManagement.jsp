@@ -29,7 +29,8 @@
         <hr>
         <form class="form-horizontal" name="editProductJsp" id = "editBookJsp" method="post" action = "editBook">
             <div class="Book management-choices">
-                Title:<input type="text" name="editBooktitle" id="editBooktitle"  placeholder="title"/>
+                Title:<input type="text" name="origBooktitle" id="origBooktitle"  placeholder="title"/>
+                Title:<input type="text" name="editBooktitle" id="editBooktitle"  placeholder="edited title"/>
                 <br>Summary:<br>
                <textarea cols="5" rows="3" name="editBookSummary" placeholder="summary here..."></textarea>
                 <br>Price:<input type="text" name="editBookPrice" id="editBookPrice"  placeholder="P0.0"/>
