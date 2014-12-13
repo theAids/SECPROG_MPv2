@@ -46,19 +46,19 @@ body {
   height: 40px;
 }
 
-/* line 48, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 .section1 {
   position: relative;
   top: 130px;
-  left: 20px;
+  left: 50px;
   text-align: left;
 }
-/* line 54, ../sass/screen.scss */
+/* line 55, ../sass/screen.scss */
 .section1 h1 {
   font-size: 70px;
   color: #ffffff;
 }
-/* line 59, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 .section1 button {
   width: inherit;
   position: relative;
@@ -66,27 +66,27 @@ body {
   font-size: 30px;
 }
 
-/* line 68, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 #content {
   background-color: #ffffff;
   text-align: center !important;
 }
-/* line 72, ../sass/screen.scss */
+/* line 73, ../sass/screen.scss */
 #content input, #content label, #content select {
   margin-top: 5px;
 }
-/* line 77, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 #content button {
   margin: 20px;
 }
 
-/* line 83, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 #profilecontent {
   background-color: #ffffff;
   padding: 15px;
 }
 
-/* line 89, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 .pDetails h4, .pDetails p {
   display: inline;
 }
