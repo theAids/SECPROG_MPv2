@@ -4,7 +4,12 @@
     Author     : aids
 --%>
 
+<%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    UserBean user = (UserBean) session.getAttribute("client_user");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,19 +25,21 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="scss/stylesheets/screen.css" rel="stylesheet">
 
-
+        
 
     </head>
+    
 
     <body>
 
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-static-top " role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                
+                <div  class="navbar-collapse collapse" >
+                    <ul class="nav navbar-nav navbar-right menubar">
                         <li><a href="#">Store</a></li>
                         <li><a href="#">Settings</a></li>
                         <li class="dropdown">
@@ -117,7 +124,14 @@
     <script src="js/jquery-1.10.min.js"></script>
 
     <script>
-
+        
+        function renderTop(){
+            
+        
+            if(<%= user%>== null){
+                $(".menubar").hide();
+            }
+        }
         
         function loadSearchCat() {
             var xmlhttp;
@@ -138,6 +152,7 @@
             {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
                 {
+                    $('[name=sHeader]').text(filter);
                     $('#searchTable tr:not(:first)').remove();
                     $('#searchTable').append(xmlhttp.responseText); 
                 }
@@ -185,6 +200,7 @@
 
         $(document).ready(function () {
             loadSearchCat();
+            renderTop();
    
         });
 
