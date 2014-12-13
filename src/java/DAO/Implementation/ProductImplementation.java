@@ -253,8 +253,8 @@ public class ProductImplementation implements ProductInterface{
             ArrayList<DvdBean> beans = new ArrayList<DvdBean>();
             while (result.next()) {
                 DvdBean bean = new DvdBean();
-                bean.setProductID(result.getInt("book.productID"));
-                bean.setDirector(result.getString("author"));
+                bean.setProductID(result.getInt("dvd.productID"));
+                bean.setDirector(result.getString("director"));
                 bean.setProductID(result.getInt("product.productID"));
                 bean.setTitle(result.getString("title"));
                 bean.setSummary(result.getString("summary"));
@@ -272,7 +272,7 @@ public class ProductImplementation implements ProductInterface{
     
     public ArrayList<MagBean> getAllMags(){
         try {
-           dBConnectionFactory = DBConnectionFactory.getInstance();
+            dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
             String query = "SELECT * FROM mag, product WHERE mag.productID = product.productID";
             PreparedStatement ps = connection.prepareStatement(query);
@@ -282,7 +282,7 @@ public class ProductImplementation implements ProductInterface{
             ArrayList<MagBean> beans = new ArrayList<MagBean>();
             while (result.next()) {
                 MagBean bean = new MagBean();
-                bean.setProductID(result.getInt("book.productID"));
+                bean.setProductID(result.getInt("mag.productID"));
                 bean.setVolNo(result.getInt("volNo"));
                 bean.setIssueNo(result.getInt("issueNo"));
                 bean.setProductID(result.getInt("product.productID"));

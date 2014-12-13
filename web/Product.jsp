@@ -51,10 +51,12 @@
         UserBean user = (UserBean) session.getAttribute("client_user");
         //UserBean user = userIM.getUser("eyjaneh_");
         AccessController acl = (AccessController) session.getAttribute("acl");
-        if (user == null) {
-            response.sendRedirect("Unauthorized.jsp");
-            return;
-        }
+
+        
+         if (user == null) {
+         response.sendRedirect("Unauthorized.jsp");
+         return;
+         }
         boolean isCustomer = false;
         boolean isBought = false;
 
@@ -96,8 +98,9 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
+
+                <div  class="navbar-collapse collapse" >
+                    <ul class="nav navbar-nav navbar-right menubar">
                         <li><a href="#">Store</a></li>
                         <li><a href="#">Settings</a></li>
                         <li class="dropdown">
@@ -148,7 +151,7 @@
                 </div>
             </div>
         </div>
-       
+
 
 
         <script src="js/jquery.min.js"></script>
@@ -156,24 +159,27 @@
         <script src="js/jquery-1.10.min.js"></script>
 
         <script>
-                        function buy() {
-                            window.location = "Creditcard.jsp";
-                        }
-                        $(document).ready(function() {
-                            $("#userID").val("<%= user.getUserID()%>");
-                            /*NOTE: */
-                            $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
+
+                    function buy() {
+                        window.location = "Creditcard.jsp";
+                    }
+                    $(document).ready(function () {
+                        $("#userID").val("<%= user.getUserID()%>");
+                        /*NOTE: */
+                        $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
             <% if (isBought) { %>
-                            //do nothing... as is
+                        //do nothing... as is
             <%} else {%>
-                            $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
-                            $("#reviewer").hide();
+                        $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
+                        $("#reviewer").hide();
 
             <%}%>
 
-                            alert("HEY");
+                        alert("HEY");
 
-                        });
+                    });
+
+                   
         </script>
         <!-- Placed at the end of the document so the pages load faster -->
 

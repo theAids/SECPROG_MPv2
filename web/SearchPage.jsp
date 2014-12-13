@@ -38,6 +38,13 @@
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
                 
+                <div id="navbar" class="navbar-collapse collapse unsigned">
+                    <div class="navbar-form navbar-right">
+                        <a class="btn btn-primary" href="Login.jsp" role="button">Login</a>
+                        <a class="btn btn-success" href="Register.jsp" role="button">Sign-up</a>
+                    </div>
+                </div><!--/.navbar-collapse -->
+                
                 <div  class="navbar-collapse collapse" >
                     <ul class="nav navbar-nav navbar-right menubar">
                         <li><a href="#">Store</a></li>
@@ -129,6 +136,8 @@
         
             if(<%= user%>== null){
                 $(".menubar").hide();
+            }else{
+                $(".unsigned").hide();
             }
         }
         

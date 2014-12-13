@@ -52,16 +52,16 @@ public class login extends HttpServlet {
             String clientAddress = null;
             String clientSalt = null;
             String clientToken = null;
-
+            
             UserDAOInterface userIM = new UserDAOImplementation();
             HttpSession userSession = null;
-
+            
             Hash hashGenerator = new Hash();
             Randomizer randomGenerator = new Randomizer();
-
+            
             Authenticator authenticator = new Authenticator();
             loggedInUser = (UserBean) authenticator.login(request, response);
-
+            
             /* check if account is locked...*/
             if (loggedInUser != null && loggedInUser.getStatus() == 3) {
                 response.sendRedirect("Lockout.jsp");
@@ -101,7 +101,7 @@ public class login extends HttpServlet {
                 clientToken = hashGenerator.getHashBASE64();
                 userSession.setAttribute("client_user", loggedInUser);
                 userSession.setAttribute("client_token", clientToken);
-
+                
                 AccessController acl = new AccessController();
                 //UserDAOInterface userIM = new UserDAOImplementation();
                 String type = userIM.getUserType(loggedInUser);
