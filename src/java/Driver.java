@@ -2,6 +2,7 @@
 
 import Bean.BookBean;
 import Bean.CustomerBean;
+import Bean.DvdBean;
 import Bean.ProductBean;
 import Bean.ProductLogBean;
 import Bean.UserBean;
@@ -43,11 +44,16 @@ public class Driver {
         UserBean ub= new UserBean();
         ub.setUserID(2);
         ProductBean pb =new ProductBean();
-        pb.setProductID(6);
-        ProductLogBean plb=new ProductLogBean();
-        plb.setActivity("added new magazine");
-        ProductlogInterface pli=new ProductlogImplementation();
-        pli.addProductLog(ub, pb, plb);
+        pb.setProductID(11);
+        DvdBean db=new DvdBean();
+        db.setProductID(9);
+        db.setDirector("liam neeson");
+        ProductImplementation pi=new ProductImplementation();
+        pi.addDvd(db);
+       // ProductLogBean plb=new ProductLogBean();
+       // plb.setActivity("added new magazine");
+       // ProductlogInterface pli=new ProductlogImplementation();
+        //pli.addProductLog(ub, pb, plb);
         
         
       /*  
