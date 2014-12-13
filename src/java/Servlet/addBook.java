@@ -61,13 +61,15 @@ public class addBook extends HttpServlet {
                 bb.setPrice(Float.parseFloat(request.getParameter("addBookPrice")));
                 bb.setStock(Float.parseFloat(request.getParameter("addBookStock")));
                 bb.setPstatus(request.getParameter("addBookPstatus"));
+                bb.setCategory("Book");
                 bb.setAuthor(request.getParameter("addBookAuthor"));
                 pb.setPrice(bb.getPrice());
                 pb.setPstatus(bb.getPstatus());
                 pb.setStock(bb.getStock());
                 pb.setSummary(bb.getSummary());
                 pb.setTitle(bb.getTitle());
-                plb.setActivity("Added New Book");
+                pb.setCategory(bb.getCategory());
+                plb.setActivity("A- Book");
                 plb.setUserID(user.getUserID());
                 pi.addProduct(pb);
                 bb.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());

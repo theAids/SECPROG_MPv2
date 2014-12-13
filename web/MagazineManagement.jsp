@@ -30,7 +30,8 @@
         <hr>
         <form class="form-horizontal" name="editProductJsp" id = "editMagJsp" method="post" action = "editMagazines">
             <div class="Magazine management-choices">
-                Title:<input type="text" name="editMagtitle" id="editMagtitle"  placeholder="title"/>
+                Title:<input type="text" name="origMagtitle" id="origMagtitle"  placeholder="title"/>
+                Title:<input type="text" name="editMagtitle" id="editMagtitle"  placeholder="edited title"/>
                 <br>Summary:<br>
                <textarea cols="5" rows="3" name="editMagSummary" placeholder="summary here..."></textarea>
                 <br>Price:<input type="text" name="editMagPrice" id="editMagPrice"  placeholder="P0.0"/>

@@ -61,13 +61,15 @@ public class addDVD extends HttpServlet {
                 db.setPrice(Float.parseFloat(request.getParameter("addDVDPrice")));
                 db.setStock(Float.parseFloat(request.getParameter("addDVDStock")));
                 db.setPstatus(request.getParameter("addDVDPstatus"));
+                db.setCategory("DVD");
                 db.setDirector(request.getParameter("addDVDDirector"));
                 pb.setPrice(db.getPrice());
                 pb.setPstatus(db.getPstatus());
                 pb.setStock(db.getStock());
                 pb.setSummary(db.getSummary());
                 pb.setTitle(db.getTitle());
-                plb.setActivity("Added New DVD");
+                pb.setCategory(db.getCategory());
+                plb.setActivity("A- DVD");
                 plb.setUserID(user.getUserID());
                 pi.addProduct(pb);
                 db.setProductID(pi.getProductBytitle(pb.getTitle()).getProductID());

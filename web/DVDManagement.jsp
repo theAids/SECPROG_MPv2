@@ -29,7 +29,8 @@
         <hr>
         <form class="form-horizontal" name="editProductJsp" id = "editDVDJsp" method="post" action = "editDVD">
             <div class="DVD management-choices">
-                Title:<input type="text" name="editDVDtitle" id="editDVDtitle"  placeholder="title"/>
+                 Title:<input type="text" name="origDVDtitle" id="origDVDtitle"  placeholder="title"/>
+                Title:<input type="text" name="editDVDtitle" id="editDVDtitle"  placeholder="edited title"/>
                 <br>Summary:<br>
                <textarea cols="5" rows="3" name="editDVDSummary" placeholder="summary here..."></textarea>
                 <br>Price:<input type="text" name="editDVDPrice" id="editDVDPrice"  placeholder="P0.0"/>
