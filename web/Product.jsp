@@ -39,16 +39,16 @@
     </head>
 
     <%
-        /*
+        
          UserDAOInterface userIM = new UserDAOImplementation();
          OrderInterface orderIM = new OrderImplementation();
          OrderingInterface orderingIM = new OrderingImplementation();
          ArrayList<Integer> itemsBought;
          ArrayList<OrderBean> customerOrders;
-         ArrayList<OrderingBean> orderProducts;*/
+         ArrayList<OrderingBean> orderProducts;
 
         ProductBean product = (ProductBean) session.getAttribute("product");
-/*
+
         UserBean user = (UserBean) session.getAttribute("client_user");
         //UserBean user = userIM.getUser("eyjaneh_");
         AccessController acl = (AccessController) session.getAttribute("acl");
@@ -102,14 +102,13 @@
 
                 <div  class="navbar-collapse collapse" >
                     <ul class="nav navbar-nav navbar-right menubar">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="SearchPage.jsp">Search</a></li>
+                        <li><a href="Cart.jsp">Cart</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aids</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Transactions</a></li>
+                                <li><a href="#">Logout</a></li>
                             </ul>
                         </li>
                     </ul>       
@@ -160,7 +159,25 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.10.min.js"></script>
-        
+         <script>
+            
+                        function buy() {
+                            window.location = "Creditcard.jsp";
+                        }
+                        $(document).ready(function() {
+                            $("#userID").val("<%= user.getUserID()%>");
+                            /*NOTE: */
+                            $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP
+            <% if (isBought) { %>
+                            //do nothing... as is
+            <%} else {%>
+                            $("#rmessage").text("YOU HAVE NOT BOUGHT THIS PRODUCT. YOU CANNOT REVIEW THIS PRODUCT WITHOUT BUYING IT");
+                            $("#reviewer").hide();
+
+            <%}%>
+
+                        });
+        </script>
         <!-- Placed at the end of the document so the pages load faster -->
 
 

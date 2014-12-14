@@ -25,10 +25,10 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="scss/stylesheets/screen.css" rel="stylesheet">
 
-        
+
 
     </head>
-    
+
 
     <body>
 
@@ -37,28 +37,30 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
-                
-                <div id="navbar" class="navbar-collapse collapse unsigned">
-                    <div class="navbar-form navbar-right">
+
+                <!--/.navbar-collapse -->
+                <div class="menubar">
+                    <div  class="navbar-collapse collapse ">
+                        <ul class="nav navbar-nav navbar-right ">
+                            <li><a href="#">Store</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>       
+                    </div>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse ">
+                    <div class="navbar-form navbar-right unlogged">
                         <a class="btn btn-primary" href="Login.jsp" role="button">Login</a>
                         <a class="btn btn-success" href="Register.jsp" role="button">Sign-up</a>
                     </div>
                 </div><!--/.navbar-collapse -->
-                
-                <div  class="navbar-collapse collapse" >
-                    <ul class="nav navbar-nav navbar-right menubar">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aids</a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>       
-                </div>
             </div>
         </nav>
 
@@ -120,98 +122,95 @@
         </div>
 
     </div>
-    
+
     <form class="form-horizontal" name="CreateProductJsp" id = "CreateBookJsp" method="post" action = "CreateProducts">
-            <div class="product-choices">
-                <input type="submit" name="CreateBookBtn" id="CreateBookBtn" value="CreateProduct"/>
-            </div>
-        </form>
-    
+        <div class="product-choices">
+            <input type="submit" name="CreateBookBtn" id="CreateBookBtn" value="CreateProduct"/>
+        </div>
+    </form>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-1.10.min.js"></script>
 
     <script>
-        
-        function renderTop(){
-        
-            if(<%= user%>== null){
-                $(".menubar").hide();
-            }else{
-                $(".unsigned").hide();
-            }
-        }
-        
-        function loadSearchCat() {
-            var xmlhttp;
-            var row;
-            
-            var filter = $('input:radio[name=filter]:checked').val();
-            
-            
-            if (window.XMLHttpRequest)
-            {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
-            }
-            else
-            {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function ()
-            {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-                {
-                    $('[name=sHeader]').text(filter);
-                    $('#searchTable tr:not(:first)').remove();
-                    $('#searchTable').append(xmlhttp.responseText); 
-                }
-            }
-            $('input:radio[name=filter]').click(function () {
-                filter = $('input:radio[name=filter]:checked').val();
-                //$('[name=sHeader]').text(filter);
-            });
-            xmlhttp.open("POST", "getSearchCat?cat="+filter, true);
-            xmlhttp.send();
-        }
-        
-        function searchItem() {
-            var xmlhttp;
-            var row;
-            var item = $('input:text[name=searchbox]').val();
-            
-            
-            if (window.XMLHttpRequest)
-            {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp = new XMLHttpRequest();
-            }
-            else
-            {// code for IE6, IE5
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function ()
-            {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-                {
-                    $('#searchTable tr:not(:first)').remove();
-                    $('#searchTable').append(xmlhttp.responseText); 
-                  
-                }
-            }
-            
-            xmlhttp.open("POST", "searchItem?search="+item, true);
-            xmlhttp.send();
-        }
-        
-        function link(){
-            //alert($("#link").text());
-            window.location = "getProductInfo?param="+$("#link").text();
-        }
+                            function loadSearchCat() {
+                                var xmlhttp;
+                                var row;
 
-        $(document).ready(function () {
-            loadSearchCat();
-            renderTop();
-   
-        });
+                                var filter = $('input:radio[name=filter]:checked').val();
+
+
+                                if (window.XMLHttpRequest)
+                                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                                    xmlhttp = new XMLHttpRequest();
+                                }
+                                else
+                                {// code for IE6, IE5
+                                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                }
+                                xmlhttp.onreadystatechange = function ()
+                                {
+                                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                                    {
+                                        $('[name=sHeader]').text(filter);
+                                        $('#searchTable tr:not(:first)').remove();
+                                        $('#searchTable').append(xmlhttp.responseText);
+                                    }
+                                }
+                                $('input:radio[name=filter]').click(function () {
+                                    filter = $('input:radio[name=filter]:checked').val();
+                                    //$('[name=sHeader]').text(filter);
+                                });
+                                xmlhttp.open("POST", "getSearchCat?cat=" + filter, true);
+                                xmlhttp.send();
+                            }
+
+                            function searchItem() {
+                                var xmlhttp;
+                                var row;
+                                var item = $('input:text[name=searchbox]').val();
+
+
+                                if (window.XMLHttpRequest)
+                                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                                    xmlhttp = new XMLHttpRequest();
+                                }
+                                else
+                                {// code for IE6, IE5
+                                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                }
+                                xmlhttp.onreadystatechange = function ()
+                                {
+                                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                                    {
+                                        $('#searchTable tr:not(:first)').remove();
+                                        $('#searchTable').append(xmlhttp.responseText);
+
+                                    }
+                                }
+
+                                xmlhttp.open("POST", "searchItem?search=" + item, true);
+                                xmlhttp.send();
+                            }
+
+                            function link() {
+                                //alert($("#link").text());
+                                window.location = "getProductInfo?param=" + $("#link").text();
+                            }
+
+                            $(document).ready(function () {
+                                loadSearchCat();
+                                // 
+        <% if (user == null) {%>
+
+                                $(".menubar").css("display", "none");
+
+        <% } else { %>
+                                $(".unlogged").css("display", "none");
+        <% }%>
+
+                            });
 
     </script>
     <!-- Placed at the end of the document so the pages load faster -->
