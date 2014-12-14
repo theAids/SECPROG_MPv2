@@ -53,7 +53,12 @@ public class activateAccount extends HttpServlet {
             user.setStatus(1);
             userIM.editAdministrativeAccount(user);
             
-            response.sendRedirect("ViewProfile.jsp");
+            if(userIM.getUserType(user).equals("Administrator")){
+                response.sendRedirect("AdminUI.jsp");
+            }else{
+                response.sendRedirect("HomeProfile.jsp");
+            }
+            
             
             
             

@@ -52,17 +52,17 @@ public class login extends HttpServlet {
             String clientAddress = null;
             String clientSalt = null;
             String clientToken = null;
-            
+
             UserDAOInterface userIM = new UserDAOImplementation();
             HttpSession userSession = null;
-            
+
             Hash hashGenerator = new Hash();
             Randomizer randomGenerator = new Randomizer();
-            
+
             Authenticator authenticator = new Authenticator();
             loggedInUser = (UserBean) authenticator.login(request, response);
-            out.print("HELLO");
-            
+            //out.print("HELLO");
+
 
             /* check if account is locked...*/
             if (loggedInUser != null && loggedInUser.getStatus() == 3) {
@@ -70,31 +70,15 @@ public class login extends HttpServlet {
                 return;
             }
 
-            /* check if account will expire */
-            if (loggedInUser != null && loggedInUser.getStatus() == 2) {
-                /*Timestamp now = new Timestamp(System.currentTimeMillis());
-                long time_elapsed = compareTwoTimeStamps(now, loggedInUser.getCreated());
-                
-                if(time_elapsed > 1440){
-                    userIM.expireUser(loggedInUser);
-                    response.sendRedirect("Expire.jsp");
-                    return;
-                }else{*/
-                    
-                //}
-                
-            
-            }
-
-                if (loggedInUser != null && loggedInUser.isLoggedIn()) {
+            if (loggedInUser != null && loggedInUser.isLoggedIn()) {
                 //out.println("I AM HERE");
                 request.getSession().invalidate();
 
                 userSession = request.getSession(true);
 
-                userSession.setMaxInactiveInterval(600);
+                //userSession.setMaxInactiveInterval(600);
                 userSession.setMaxInactiveInterval(300); // recommended by owasp for hv app https://www.owasp.org/index.php/Session_Management
-                
+
                 /* HASH CLIENT TOKEN */
                 clientAddress = request.getRemoteAddr();
                 clientSalt = Long.toString(randomGenerator.getRandomLong());
@@ -103,27 +87,37 @@ public class login extends HttpServlet {
                 clientToken = hashGenerator.getHashBASE64();
                 userSession.setAttribute("client_user", loggedInUser);
                 userSession.setAttribute("client_token", clientToken);
-                
+
+                /* check if account will expire */
+                if (loggedInUser.getStatus() == 2) {
+                    Timestamp now = new Timestamp(System.currentTimeMillis());
+                    long time_elapsed = compareTwoTimeStamps(now, loggedInUser.getCreated());
+
+                    if (time_elapsed > 1440) {
+                        userIM.expireUser(loggedInUser);
+                        response.sendRedirect("Expire.jsp");
+                        return;
+                    } else {
+                        response.sendRedirect("ActivateAccount.jsp");
+                        return;
+                    }
+                }
+
                 AccessController acl = new AccessController();
                 //UserDAOInterface userIM = new UserDAOImplementation();
                 String type = userIM.getUserType(loggedInUser);
                 if (type.equals("Customer")) {
                     acl.setLoggedInUser(loggedInUser);
+                    response.sendRedirect("SearchPage.jsp");
+                    return;
                 } else if (type.equals("Administrator")) {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setCREATE_USER(1);
                     acl.setDELETE_USER(1);
                     acl.setUNLOCK_USER(1);
-                    
-                    if(loggedInUser.getStatus() == 2){
-                    response.sendRedirect("ActivateAccount.jsp");
+                    userSession.setAttribute("acl", acl);
+                    response.sendRedirect("AdminUI.jsp");
                     return;
-                    }/*else{
-                        response.sendRedirect("CreateManager.jsp");
-                        return;
-                    }*/
-                    
-                    
                 } else if (type.equals("Book")) {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setADD_BOOK(1);
@@ -150,15 +144,11 @@ public class login extends HttpServlet {
                 }
 
                 userSession.setAttribute("acl", acl);
-                //loggedInUser.addSession(userSession);
-                
-                if(loggedInUser.getStatus() == 2){
-                    response.sendRedirect("ActivateAccount.jsp");
-                    return;
-                }
+                loggedInUser.addSession(userSession);
 
                 //redirect it to somewhere...
                 response.sendRedirect("SearchPage.jsp");
+                return;
             } else {
                 //log
                 response.sendRedirect("Login.jsp");

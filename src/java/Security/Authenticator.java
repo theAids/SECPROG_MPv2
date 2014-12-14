@@ -69,6 +69,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         int nAttempts;
         if(user != null){
             nAttempts = signlogIM.checkLock(user);
+            System.out.println("nAttempts: " + nAttempts);
         }else{
             nAttempts = 0;
         }

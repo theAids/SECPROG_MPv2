@@ -26,14 +26,18 @@
        
     </head>
     <%
+        HttpSession userSession = null;
+        userSession = request.getSession();
+        
         UserDAOInterface userIM = new UserDAOImplementation();
-        //UserBean user = (UserBean) session.getAttribute("client_user");
+        UserBean user = (UserBean) userSession.getAttribute("client_user");
+        
         AccessController acl = (AccessController) session.getAttribute("acl");
-        /*if(user == null || acl.getCREATE_USER() == 0){
+        if(user == null || acl.getCREATE_USER() == 0){
             response.sendRedirect("Unauthorized.jsp");
             return;
-        }*/
-        UserBean user = userIM.getUser("eyjaneh_");
+        }
+        //UserBean user = userIM.getUser("eyjaneh_");
         //user.setPassword("helloworld");
         
         String type = userIM.getUserType(user);
@@ -50,6 +54,15 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
+                
+                <div id="navbar" class="navbar-collapse collapse">
+                    <div class="navbar-form navbar-right">
+                        <form method="link" action="logout">
+                            <button type="submit" class="btn btn-danger btn-xs">Log-out</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </nav>
 
         <div class="container">
@@ -120,6 +133,8 @@
                     </div>
 
                 </form>
+                
+                <a class="btn btn-primary" href="AdminUI.jsp" role="button">Back to Admin UI</a>
             </div>
 
         </div>

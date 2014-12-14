@@ -7,6 +7,7 @@ package DAO.Implementation;
 
 import Bean.CustomerBean;
 import Bean.UserBean;
+import DAO.Interface.SignlogInterface;
 import DAO.Interface.UserDAOInterface;
 import DB.Connection.DBConnectionFactory;
 import java.sql.*;
@@ -149,6 +150,7 @@ public class UserDAOImplementation implements UserDAOInterface {
                 u.setStatus(resultSet.getInt("ustatus"));
                 u.setbAddress(resultSet.getString("billingAddress"));
                 u.setdAddress(resultSet.getString("deliveryAddress"));
+                u.setCreated(resultSet.getTimestamp("date_created"));
                 /*if(resultSet.getString("userType").equals("customer")){
                     CustomerBean c = (CustomerBean) u;
                     c.setbAddress(resultSet.getString("billingAddress"));
@@ -187,6 +189,7 @@ public class UserDAOImplementation implements UserDAOInterface {
                 u.setStatus(resultSet.getInt("ustatus"));
                 u.setbAddress(resultSet.getString("billingAddress"));
                 u.setdAddress(resultSet.getString("deliveryAddress"));
+                u.setCreated(resultSet.getTimestamp("date_created"));
                 /*if(resultSet.getString("userType").equals("customer")){
                     CustomerBean c = (CustomerBean) u;
                     c.setbAddress(resultSet.getString("billingAddress"));
@@ -226,6 +229,7 @@ public class UserDAOImplementation implements UserDAOInterface {
                 u.setPassword(resultSet.getString("pword"));
                 u.setEmail(resultSet.getString("email"));
                 u.setStatus(resultSet.getInt("ustatus"));
+                u.setCreated(resultSet.getTimestamp("date_created"));
                 
                 /*if(resultSet.getString("userType").equals("customer")){
                     CustomerBean c = (CustomerBean) u;
@@ -304,22 +308,6 @@ public class UserDAOImplementation implements UserDAOInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "UPDATE foo_user SET ustatus = 3 WHERE userID = ?;";
-            PreparedStatement prep = connection.prepareStatement(query);
-            prep.setInt(1, bean.getUserID());
-            prep.executeUpdate();
-            
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @Override
-    public void unlockUser(UserBean bean){
-        try {
-            dBConnectionFactory = DBConnectionFactory.getInstance();
-            connection = dBConnectionFactory.getConnection();
             String query = "UPDATE foo_user SET ustatus = 1 WHERE userID = ?;";
             PreparedStatement prep = connection.prepareStatement(query);
             prep.setInt(1, bean.getUserID());
@@ -332,7 +320,26 @@ public class UserDAOImplementation implements UserDAOInterface {
     }
     
     @Override
+    public void unlockUser(UserBean bean){
+        SignlogInterface signLogIM = new SignlogImplementation();
+        try {
+            dBConnectionFactory = DBConnectionFactory.getInstance();
+            connection = dBConnectionFactory.getConnection();
+            String query = "UPDATE foo_user SET ustatus = 1 WHERE userID = ?;";
+            PreparedStatement prep = connection.prepareStatement(query);
+            prep.setInt(1, bean.getUserID());
+            prep.executeUpdate();
+            
+            signLogIM.addLog(bean, 2);
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
     public void unlockUser(String username){
+        SignlogInterface signLogIM = new SignlogImplementation();
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
@@ -340,7 +347,9 @@ public class UserDAOImplementation implements UserDAOInterface {
             PreparedStatement prep = connection.prepareStatement(query);
             prep.setString(1, username);
             prep.executeUpdate();
-            
+            //System.out.println("SUCCESS UNLOCKING");
+            UserBean bean = getUser(username);
+            signLogIM.addLog(bean, 2);
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);

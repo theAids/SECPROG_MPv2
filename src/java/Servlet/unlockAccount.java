@@ -39,7 +39,7 @@ public class unlockAccount extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
            UserDAOInterface userIM = new UserDAOImplementation();
            UserBean delAcc = userIM.getUser(request.getParameter("username"));
-           System.out.println(delAcc.getUsername());
+           System.out.println("UNLOCKING: " + delAcc.getUsername());
            userIM.unlockUser(delAcc);
            out.println("SUCCESS");
         }

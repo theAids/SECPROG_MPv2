@@ -27,7 +27,22 @@ import java.util.ArrayList;
  *
  * @author kimberly
  */
+
+
 public class Driver {
+    
+    public static long compareTwoTimeStamps(java.sql.Timestamp currentTime, java.sql.Timestamp oldTime) {
+        long milliseconds1 = oldTime.getTime();
+        long milliseconds2 = currentTime.getTime();
+
+        long diff = milliseconds2 - milliseconds1;
+        long diffSeconds = diff / 1000;
+        long diffMinutes = diff / (60 * 1000);
+        long diffHours = diff / (60 * 60 * 1000);
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+
+        return diffMinutes;
+    }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         
@@ -38,20 +53,25 @@ public class Driver {
         SignlogInterface signlogIM = new SignlogImplementation();
         ArrayList<UserBean> aUsers = userIM.getAllUser();
         
+        UserBean u = userIM.getCustomer("eyjaneh_");
+        System.out.println(u.getCreated());
+        
+        userIM.unlockUser(u.getUsername());
+        
         //for(UserBean u: aUsers){
         //    System.out.println(u.getUsername());
         //}
-        UserBean ub= new UserBean();
+        /*UserBean ub= new UserBean();
         ub.setUserID(1);
         ProductBean pb =new ProductBean();
         pb.setProductID(8);
-        DvdBean db=new DvdBean();
+        DvdBean db=new DvdBean();*/
         //db.setProductID(6);
         //db.setDirector("liam neeson");
-        ProductImplementation pi=new ProductImplementation();
+        /*ProductImplementation pi=new ProductImplementation();
         pi.deleteBook(pi.getProductByTitle("harry prouy").getProductID());
         BookBean bb =new BookBean();
-        bb.setProductID(8);
+        bb.setProductID(8);*/
        // bb.setAuthor("pen");
         //pi.addBook(bb);
        //ProductLogBean plb=new ProductLogBean();
