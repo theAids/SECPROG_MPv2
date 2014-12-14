@@ -80,11 +80,12 @@ public class UserDAOImplementation implements UserDAOInterface {
                 }
                 */
             }
-            connection.close();
+            //connection.close();
+            return u;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return u;
+        return null;
     }
     
     @Override
@@ -236,7 +237,7 @@ public class UserDAOImplementation implements UserDAOInterface {
                 aUsers.add(u);
             }
             
-            connection.close();
+            //connection.close();
             return aUsers;
             
         } catch (SQLException ex) {

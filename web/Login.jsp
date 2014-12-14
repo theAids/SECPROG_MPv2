@@ -39,19 +39,12 @@
                         <div class="col-md-6 col-md-offset-3">
                             <label for="username" class="col-md-3 control-label">Username</label>
                             <div class="col-md-9">
-<<<<<<< HEAD
+                                
                                 <input type="text" required = "true"  class="form-control" name="username" id="username"/>
                             </div>
                             <label for="password" class="col-md-3 control-label">Password</label>
                             <div class="col-md-9">
                                 <input type="password" required = "true"   class="form-control" name="password" id="password"/>
-=======
-                                <input type="text" class="form-control" name="username" id="username"/>
-                            </div>
-                            <label for="password" class="col-md-3 control-label">Password</label>
-                            <div class="col-md-9">
-                                <input type="password" class="form-control" name="password" id="password"/>
->>>>>>> master
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success btn-block">Log in</button>

@@ -53,7 +53,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         int userID = -1;
         String userName = null;
         String userPassword = null;
-        UserBean u = null;
+        UserBean u = new UserBean();
         int i;
       
         ArrayList<UserBean> aUsers = userIM.getAllUser(); 
@@ -62,9 +62,16 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         userPassword = hsr.getParameter("password");
         System.out.println(userPassword);
         
+        
         /* CHECK LOGIN ATTEMPTS */
+        
         UserBean user = userIM.getUser(userName);
-        int nAttempts = signlogIM.checkLock(user);
+        int nAttempts;
+        if(user != null){
+            nAttempts = signlogIM.checkLock(user);
+        }else{
+            nAttempts = 0;
+        }
         
         if(user != null && nAttempts >= 5){
             userIM.lockUser(user);
@@ -75,6 +82,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         }
         
         /* hash password */
+        
         try {
             userPassword = hashPassword(userPassword);
         } catch (NoSuchAlgorithmException ex) {
@@ -84,6 +92,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         }
 
         //traverse the arrayList
+        
         for (i = 0; i < aUsers.size(); i++) {
             if (userName.equals(aUsers.get(i).getUsername())) {
                 if(userPassword.equals(aUsers.get(i).getPassword())){
@@ -103,7 +112,7 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         
         System.out.println("NAY");
         u.setUserID(-1); //-1 means non-existent user
-        signlogIM.addLog(u, 0);
+        //signlogIM.addLog(u, 0);
         return null;
     }
 

@@ -61,6 +61,7 @@ public class login extends HttpServlet {
             
             Authenticator authenticator = new Authenticator();
             loggedInUser = (UserBean) authenticator.login(request, response);
+            out.print("HELLO");
             
 
             /* check if account is locked...*/
@@ -85,7 +86,7 @@ public class login extends HttpServlet {
             
             }
 
-            if (loggedInUser != null && loggedInUser.isLoggedIn()) {
+                if (loggedInUser != null && loggedInUser.isLoggedIn()) {
                 //out.println("I AM HERE");
                 request.getSession().invalidate();
 

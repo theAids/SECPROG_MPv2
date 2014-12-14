@@ -35,12 +35,12 @@ public class SignlogImplementation implements SignlogInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "INSERT INTO signLog(userID, logDate, lStatus) VALUES (?,?,?);";
+            String query = "INSERT INTO signLog(userID, lStatus) VALUES (?,?);";
             PreparedStatement prep = connection.prepareStatement(query);
             prep.setInt(1, bean.getUserID());
-            Timestamp today = new Timestamp(System.currentTimeMillis());
-            prep.setTimestamp(2, today);
-            prep.setInt(3, s); //0 if fail, 1 if success...
+           // Timestamp today = new Timestamp(System.currentTimeMillis());
+            //prep.setTimestamp(1, today);
+            prep.setInt(2, s); //0 if fail, 1 if success...
             
 
             prep.executeUpdate();
@@ -56,7 +56,7 @@ public class SignlogImplementation implements SignlogInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "select count(*) from signLog where logDate >= now() - interval 15 minute and userID = ? && lstatus = 0;";
+            String query = "select count(*) from signLog where logDate >= now() - interval 15 minute and userID = ? && lstatus = 0";
             PreparedStatement prep = connection.prepareStatement(query);
             prep.setInt(1, bean.getUserID());
             ResultSet resultSet = prep.executeQuery();
@@ -64,7 +64,7 @@ public class SignlogImplementation implements SignlogInterface {
             while(resultSet.next()){
                 i = resultSet.getInt("count(*)");
             }
-            connection.close();
+            //connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
