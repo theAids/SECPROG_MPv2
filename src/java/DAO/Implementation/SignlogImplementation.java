@@ -44,9 +44,9 @@ public class SignlogImplementation implements SignlogInterface {
             
 
             prep.executeUpdate();
-            connection.close();
+            //connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignlogImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -56,21 +56,63 @@ public class SignlogImplementation implements SignlogInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "select count(*) from signLog where logDate >= now() - interval 15 minute and userID = ? && lstatus = 0";
-            PreparedStatement prep = connection.prepareStatement(query);
-            prep.setInt(1, bean.getUserID());
+            String query;
+            PreparedStatement prep;
+            
+            if(lastLock(bean) == null){ //never been locked
+                System.out.println("NEVER LOCKED");
+                query = "select count(*) from signLog where logDate >= now() - interval 15 minute and userID = ? and lstatus = 0";
+                prep = connection.prepareStatement(query);
+                prep.setInt(1, bean.getUserID());
+            }else{
+                query = "select count(*) from signLog where logDate >= ? + interval 15 minute and userID = ? and lstatus = 0";
+                prep = connection.prepareStatement(query);
+                prep.setTimestamp(1, lastLock(bean));
+                prep.setInt(2, bean.getUserID());
+                
+                System.out.println("LAST LOCKED: " + lastLock(bean));
+            }
+            
             ResultSet resultSet = prep.executeQuery();
             
             while(resultSet.next()){
                 i = resultSet.getInt("count(*)");
             }
+            
             //connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAOImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SignlogImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return i;
     }
+    
+    @Override
+    public Timestamp lastLock(UserBean bean){
+        Timestamp last = null;
+        try {
+            dBConnectionFactory = DBConnectionFactory.getInstance();
+            connection = dBConnectionFactory.getConnection();
+            String query = "select max(logDate) from signLog where userID = ? && lstatus = 2";
+            PreparedStatement prep = connection.prepareStatement(query);
+            prep.setInt(1, bean.getUserID());
+            ResultSet resultSet = prep.executeQuery();
+            
+            while(resultSet.next()){
+                last = resultSet.getTimestamp("max(logDate)");
+            }
+            
+            
+            //connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SignlogImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+        return last;
+    }
+    
+    
     public ArrayList<SignLogBean> getAllUserLogs() 
     {
         try 

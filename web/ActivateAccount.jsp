@@ -28,9 +28,16 @@
        
     </head>
     <%
+        HttpSession userSession = null;
+        userSession = request.getSession();
+        
         UserDAOInterface userIM = new UserDAOImplementation();
-        UserBean user = (UserBean) session.getAttribute("client_user");
-        if(user == null){
+        UserBean user = (UserBean) userSession.getAttribute("client_user");
+        
+        if(user == null || user.getStatus() != 2){
+            if(user == null){
+                System.out.println("FROM ACTIVATE ACCOUNT: USER IS NULL");
+            }
             response.sendRedirect("Unauthorized.jsp");
             return;
         }
@@ -66,10 +73,6 @@
                             </div>
 
                             <div class="col-md-12">
-                                <input type="password" required = "true"  pattern=".{6,30}" title="Minimum of 6 characters and maximum of 30." onchange="form.vpassword.pattern = this.value;" placeholder="Old Password" class="form-control" name="password" id="password"/>
-                            </div>
-
-                            <div class="col-md-12">
                                 <input type="password" required = "true"  pattern=".{6,30}" title="Minimum of 6 characters and maximum of 30." onchange="form.vpassword.pattern = this.value;" placeholder="New Password" class="form-control" name="npassword" id="npassword"/>
                             </div>
 
@@ -102,25 +105,12 @@
         <script src="js/bootstrap.min.js"></script>
         
         <script>
-            var submit = 1;
             
-           
             $(document).ready(function () {
-                //checkOldPass();
-                
-                
                 
                 $("#userID").val("<%= user.getUserID() %>");
+             
                 
-                $("#regForm").submit(function(event){ 
-                    if ( submit != 1) {
-                        event.preventDefault(); 
-                    }
-                });
-                
-                
-                
-                //alert($("#userID").val());
             });
         </script>
     </body>

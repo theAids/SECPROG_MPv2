@@ -15,7 +15,7 @@ import org.joda.time.LocalDateTime;
 public class SignLogBean extends UserBean{
     private int userID;
     private LocalDateTime logDate;
-    private int lstatus;
+    private int lstatus; //0 = fail, 1 = success, 2 = unlocked
 
     public int getUserID() {
         return userID;

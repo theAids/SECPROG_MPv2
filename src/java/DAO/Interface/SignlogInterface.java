@@ -16,5 +16,6 @@ import java.sql.Timestamp;
 public interface SignlogInterface {
     public void addLog(UserBean bean, int s);
     public int checkLock(UserBean bean);
+    public Timestamp lastLock(UserBean bean);
     
 }
