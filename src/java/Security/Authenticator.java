@@ -75,7 +75,9 @@ public class Authenticator implements org.owasp.esapi.Authenticator {
         }
         
         if(user != null && nAttempts >= 5){
-            userIM.lockUser(user);
+            userIM.lockUser(user);  
+            System.out.println("LOCKING..");
+            
             
             user = userIM.getUser(userName);
            

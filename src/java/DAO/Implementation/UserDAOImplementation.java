@@ -308,7 +308,7 @@ public class UserDAOImplementation implements UserDAOInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "UPDATE foo_user SET ustatus = 1 WHERE userID = ?;";
+            String query = "UPDATE foo_user SET ustatus = 2 WHERE userID = ?;";
             PreparedStatement prep = connection.prepareStatement(query);
             prep.setInt(1, bean.getUserID());
             prep.executeUpdate();
