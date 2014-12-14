@@ -4,7 +4,14 @@
     Author     : aids
 --%>
 
+<%@page import="Bean.OrderBean"%>
+<%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    UserBean user = (UserBean) session.getAttribute("client_user");
+     //OrderBean trans = (OrderBean) session.getAttribute("trans");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,6 +84,37 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.10.min.js"></script>
+        <script>
+            function loadCart() {
+                var xmlhttp;
+                var row;
+
+
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                    {
+                        $('#cartTable tr:not(:first)').remove();
+                        $('#cartTable').append(xmlhttp.responseText);
+                    }
+                }
+                
+                xmlhttp.open("POST", "getCart", true);
+                xmlhttp.send();
+            }
+            
+            $(document).ready(function (){
+               loadCart(); 
+            });
+        </script>
         <!-- Placed at the end of the document so the pages load faster -->
 
 
