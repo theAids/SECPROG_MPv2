@@ -74,7 +74,14 @@ public class addtoCart extends HttpServlet {
             prod.setProductID(product.getProductID());
             
             cart.addOrderProduct(prod);
-            session.setAttribute("trans", trans);
+            
+            
+         
+            
+            ArrayList<OrderingBean> items = new ArrayList<OrderingBean>();
+            
+            items = cart.getOrderByIDProducts(trans.getOrderID());
+            session.setAttribute("cart", items);
             response.sendRedirect("Cart.jsp");
 
         }

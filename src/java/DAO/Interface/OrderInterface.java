@@ -23,4 +23,5 @@ public interface OrderInterface {
     public ArrayList<OrderBean> getTodayOrders();
     public OrderBean getCart(int userid);
     public void deleteOrder(int orderID);
+    public void editOrderStatus(int orderID, String status);
 }

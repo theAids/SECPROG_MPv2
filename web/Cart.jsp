@@ -4,13 +4,35 @@
     Author     : aids
 --%>
 
+<%@page import="Bean.OrderingBean"%>
+<%@page import="Bean.ProductBean"%>
+<%@page import="Bean.ProductBean"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.Implementation.ProductImplementation"%>
+<%@page import="DAO.Implementation.OrderingImplementation"%>
 <%@page import="Bean.OrderBean"%>
 <%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    UserBean user = (UserBean) session.getAttribute("client_user");
-     //OrderBean trans = (OrderBean) session.getAttribute("trans");
 
+    String token = (String) session.getAttribute("client_token");
+    UserBean user = new UserBean();
+
+    if (token != null) {
+        user = (UserBean) session.getAttribute("client_user");
+    } else {
+        response.sendRedirect("Unauthorized.jsp");
+        
+    }
+
+    ArrayList<OrderingBean> cart = new ArrayList<OrderingBean>();
+    //cart = (ArrayList<OrderingBean>) session.getAttribute("cart");
+
+    float total = 0;
+
+    for (OrderingBean bean : cart) {
+        total += bean.getPrice() * bean.getQuantity();
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,16 +57,15 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Settings</a></li>
+                <div  class="navbar-collapse collapse" >
+                    <ul class="nav navbar-nav navbar-right menubar">
+                        <li><a href="SearchPage.jsp">Search</a></li>
+                        <li><a href="Cart.jsp">Cart</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aids</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Transactions</a></li>
+                                <li><a href="#">Logout</a></li>
                             </ul>
                         </li>
                     </ul>       
@@ -73,8 +94,8 @@
                 </div>
                 <br/>
                 <h4 style="display: inline-block">Total Amount:</h4>
-                <h4 style="display: inline-block;color:#5BC236">00.00php</h4>
-                <a href="#" class="btn btn-primary">Checkout</a>
+                <h4 style="display: inline-block;color:#5BC236"><%=total%>php</h4>
+                <a href="Checkout.jsp" class="btn btn-primary">Checkout</a>
                 <a href="SearchPage.jsp" class="btn btn-success">Search More</a>
             </div>
         </div>
@@ -106,13 +127,13 @@
                         $('#cartTable').append(xmlhttp.responseText);
                     }
                 }
-                
+
                 xmlhttp.open("POST", "getCart", true);
                 xmlhttp.send();
             }
-            
-            $(document).ready(function (){
-               loadCart(); 
+
+            $(document).ready(function () {
+                loadCart();
             });
         </script>
         <!-- Placed at the end of the document so the pages load faster -->

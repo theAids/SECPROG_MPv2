@@ -7,7 +7,14 @@
 <%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    UserBean user = (UserBean) session.getAttribute("client_user");
+    String token = (String) session.getAttribute("client_token");
+    UserBean user;
+
+    if (token != null) {
+        user = (UserBean) session.getAttribute("client_user");
+    } else {
+        user = new UserBean();
+    }
 %>
 
 <!DOCTYPE html>
@@ -24,7 +31,16 @@
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="scss/stylesheets/screen.css" rel="stylesheet">
+        <script>
+            $(document).ready(function () {
+            <% if (token == null) {%>
+                $(".menubar").css("display", "none");
+            <% } else { %>
+                $(".unlogged").css("display", "none");
+            <% }%>
 
+            });
+        </script>
 
 
     </head>
@@ -39,17 +55,16 @@
                 </div>
 
                 <!--/.navbar-collapse -->
-                <div class="menubar">
-                    <div  class="navbar-collapse collapse ">
-                        <ul class="nav navbar-nav navbar-right ">
-                            <li><a href="#">Store</a></li>
-                            <li><a href="#">Settings</a></li>
+                <div class=" menubar">
+                    <div  class="navbar-collapse collapse" >
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="SearchPage.jsp">Search</a></li>
+                            <li><a href="Cart.jsp">Cart</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="#">Transactions</a></li>
+                                    <li><a href="#">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>       
@@ -194,23 +209,19 @@
                                 xmlhttp.send();
                             }
 
-                            function link() {
-                                //alert($("#link").text());
-                                window.location = "getProductInfo?param=" + $("#link").text();
-                            }
 
                             $(document).ready(function () {
                                 loadSearchCat();
-                                // 
-        <% if (user == null) {%>
+                                
 
-                                $(".menubar").css("display", "none");
-
-        <% } else { %>
-                                $(".unlogged").css("display", "none");
-        <% }%>
-
-                            });
+                                <% if (token == null) {%>
+                                       $(".menubar").css("display", "none");
+                                <% } else { %>
+                                       $(".unlogged").css("display", "none");
+                                <% }%>
+                                    
+                            }
+                            );
 
     </script>
     <!-- Placed at the end of the document so the pages load faster -->

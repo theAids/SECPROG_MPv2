@@ -7,7 +7,19 @@
 <%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    UserBean user = (UserBean) session.getAttribute("client_user");
+    String token = (String) session.getAttribute("client_token");
+    UserBean user;
+
+    if (token != null) {
+        user = (UserBean) session.getAttribute("client_user");
+    } else {
+        user = new UserBean();
+    }
+
+    if (token == null) {
+        response.sendRedirect("Unauthorized.jsp");
+        return;
+    }
 %>
 
 <!DOCTYPE html>
@@ -32,7 +44,7 @@
 
     <body>
 
-        <nav class="navbar navbar-inverse navbar-static-top " role="navigation">
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Foobar Bookshop</a>
@@ -40,14 +52,13 @@
 
                 <div  class="navbar-collapse collapse" >
                     <ul class="nav navbar-nav navbar-right menubar">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="SearchPage.jsp">Search</a></li>
+                        <li><a href="Cart.jsp">Cart</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aids</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Transactions</a></li>
+                                <li><a href="#">Logout</a></li>
                             </ul>
                         </li>
                     </ul>       
@@ -60,7 +71,7 @@
                 <h2>Payment Information</h2>
                 <hr/>
 
-                <form>
+                <form id="checkout" method="post" action="checkoutOrder">
                     <div class="radio" >
                         <label >
                             <input type="radio" name="ccn" value="visa" checked>
@@ -70,21 +81,16 @@
                             <input type="radio" name="ccn" value="mastercard">
                             <img src="images/mastercard.png" style="height:50px;width:90px"/>
                         </label>
-                        <label>
-                            <input type="radio" name="ccn" value="american">
-                            <img src="images/american.png" style="height:50px;width:90px"/>
-                        </label>
-                        <label>
                     </div>
-                    
+
                     <label>
                         Credit Card Number:
-                        <input type="text" required="true" pattern="^[0-9]{16}$" name="ccnumber"/>
+                        <input type="text" required="true" pattern="^[0-9]{16}$" name="ccnumber"/><span id="warning"></span>
                     </label>
                     <br>
                     <label>
                         Expires:
-                        <select name="month"></select> / <select name="year"></select>
+                        <select name="month"></select> / <select name="year"></select><span id="warningdate"></span>
                     </label>
                     <br>
                     <label>
@@ -93,45 +99,73 @@
                     </label>
                     <br>
                     <input type="submit" class="btn btn-success" value="Proceed"/>
-                    
+
                 </form>
-                
+
             </div>
-
         </div>
-    </div>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-1.10.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery-1.10.min.js"></script>
 
-    <script>
-        function initMonth(){
-            var i = 1;
-            for(;i<13;i++){
-                $('[name=month]').append("<option value='"+i+"'>"+i+"</option>");
+        <script>
+
+            $("#checkout").submit(function (event) {
+                var ccn = $('[name=ccnumber]').val();
+                var card = $('input:radio[name=ccn]:checked').val();
+                var month = $('[name=month]').val();
+                var year = $('[name=year]').val();
+                
+                var current = new Date();
+                
+                if(card == "visa"){
+                    if(ccn.charAt(0)!= 4){
+                        $("#warning").text("Invalid credit card number").css({"font-style":"italic","color":"red"});
+                        alert(month);
+                        event.preventDefault();
+                    }
+                }else if(card == "mastercard"){
+                    if(ccn.charAt(0)!= 5 || ccn.charAt(1) > 5 || ccn.charAt(1) < 1){
+                        $("#warning").text("Invalid credit card number").css({"font-style":"italic","color":"red"});
+                        event.preventDefault();
+                    }
+                }
+                
+               if(month <= current.getMonth() && year == current.getFullYear()){
+                   $("#warningdate").text("Your card is expired").css({"font-style":"italic","color":"red"});
+                        event.preventDefault();
+               }
+            });
+
+            function initMonth() {
+                var i = 1;
+                for (; i < 13; i++) {
+                    $('[name=month]').append("<option value='" + i + "'>" + i + "</option>");
+                }
             }
-        }
-        
-        function initYear(){
-            var current = new Date();
-            var i = current.getFullYear();
-            var year = i+20;
-            for(;i<year;i++){
-                $('[name=year]').append("<option value='"+i+"'>"+i+"</option>");
+
+
+            function initYear() {
+                var current = new Date();
+                var i = current.getFullYear();
+                var year = i + 20;
+                for (; i < year; i++) {
+                    $('[name=year]').append("<option value='" + i + "'>" + i + "</option>");
+                }
             }
-        }
-        
-        $(document).ready(function (){
-            initMonth();
-            initYear();
-        });
 
-    </script>
-    <!-- Placed at the end of the document so the pages load faster -->
+            $(document).ready(function () {
+                initMonth();
+                initYear();
+
+            });
+
+        </script>
+        <!-- Placed at the end of the document so the pages load faster -->
 
 
-</body>
+    </body>
 </html>
 

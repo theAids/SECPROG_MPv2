@@ -42,16 +42,13 @@ public class getCart extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             
-            OrderBean trans = (OrderBean) session.getAttribute("trans");
-            OrderingImplementation products = new OrderingImplementation();
             
             ProductImplementation prodIM = new ProductImplementation();
-            
             ArrayList<OrderingBean> cart = new ArrayList<OrderingBean>();
             ArrayList<ProductBean> items = new ArrayList<ProductBean>();
             ProductBean item;
             
-            cart = products.getOrderByIDProducts(trans.getOrderID());
+            cart = (ArrayList<OrderingBean>) session.getAttribute("cart");
             
             for(OrderingBean bean: cart){
                 item = new ProductBean();

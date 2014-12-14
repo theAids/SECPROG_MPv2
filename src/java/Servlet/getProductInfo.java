@@ -42,31 +42,39 @@ public class getProductInfo extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             
-            String param = request.getParameter("param");
+            int id = Integer.parseInt(request.getParameter("id"));
             ProductImplementation prodImpl = new ProductImplementation();
-            ProductBean prod = new ProductBean();
-            prod = prodImpl.getProductByTitle(param);
+            ProductBean prod = prodImpl.getProductById(id);
             
-            /*
+            
+            BookBean book = new BookBean();
+            MagBean mag = new MagBean();
+            DvdBean dvd = new DvdBean();
+            CDBean cd = new CDBean();
+            
+                  
+            
+            
             if(prod.getCategory().equals("book")){
                 BookBean bean = new BookBean();
                 bean = prodImpl.getBookById(prod.getProductID());
+                session.setAttribute("book", bean);
                 
             }else if(prod.getCategory().equals("magazine")){
                 MagBean bean = new MagBean();
                 bean = prodImpl.getMagById(prod.getProductID());
-                
+                session.setAttribute("magazine", bean);
                 
             }else if(prod.getCategory().equals("cd")){
                 CDBean bean = new CDBean();
                 bean = prodImpl.getCDById(prod.getProductID());
-                
+                session.setAttribute("cd", bean);
                 
             }else if(prod.getCategory().equals("dvd")){
-                DVDBean bean = new DVDBean();
+                DvdBean bean = new DvdBean();
                 bean = prodImpl.getDVDById(prod.getProductID());
-                
-            }*/
+                session.setAttribute("dvd", bean);
+            }
             session.setAttribute("product", prod);
             response.sendRedirect("Product.jsp");
         }

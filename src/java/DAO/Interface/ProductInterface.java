@@ -36,7 +36,6 @@ public interface ProductInterface {
     public void editProductBySummary(int id, String title);
     public void editProductByPrice(int id, float price);
     public void editProductByStock(int id, float stock);
-    public void editProductByStatus(int id, int pstatus);
      public void editProductByStatus(int id, String pstatus);
     public void editBookByAuthor(int id, String author);
     public void editCDByArtist(int id, String artist);

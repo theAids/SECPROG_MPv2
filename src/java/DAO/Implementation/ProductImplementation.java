@@ -323,9 +323,8 @@ public class ProductImplementation implements ProductInterface {
             ResultSet resultSet = ps.executeQuery();
             ProductBean bean;
             ArrayList<ProductBean> beans = new ArrayList<ProductBean>();
-            
-            while (resultSet.next()) 
-            {
+
+            while (resultSet.next()) {
                 bean = new ProductBean();
                 bean.setProductID(resultSet.getInt("productID"));
                 bean.setTitle(resultSet.getString("title"));
@@ -507,35 +506,35 @@ public class ProductImplementation implements ProductInterface {
     public void deleteBook(int productID) {
         //try {
             /*dBConnectionFactory = DBConnectionFactory.getInstance();
-            connection = dBConnectionFactory.getConnection();
-            String query = "DELETE FROM book WHERE book.productID = ?";
-            PreparedStatement prep = connection.prepareStatement(query);
+         connection = dBConnectionFactory.getConnection();
+         String query = "DELETE FROM book WHERE book.productID = ?";
+         PreparedStatement prep = connection.prepareStatement(query);
 
-            prep.setInt(1, productID);
-            prep.executeUpdate();
+         prep.setInt(1, productID);
+         prep.executeUpdate();
 
-            String query2 = "DELETE FROM product WHERE productID = ?";
-            PreparedStatement prep2 = connection.prepareStatement(query2);
-            prep2.setInt(1, productID);
-            prep2.executeUpdate();
-                    */
-          
-       //} catch (SQLException ex) {
+         String query2 = "DELETE FROM product WHERE productID = ?";
+         PreparedStatement prep2 = connection.prepareStatement(query2);
+         prep2.setInt(1, productID);
+         prep2.executeUpdate();
+         */
+
+        //} catch (SQLException ex) {
         //    Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
         //}
-             editProductByStatus(productID,"Deleted");
+        editProductByStatus(productID, "Deleted");
     }
 
     public void deleteCD(int productID) {
-         editProductByStatus(productID,"Deleted");
+        editProductByStatus(productID, "Deleted");
     }
 
     public void deleteDVD(int productID) {
-        editProductByStatus(productID,"Deleted");
+        editProductByStatus(productID, "Deleted");
     }
 
     public void deleteMag(int productID) {
-        editProductByStatus(productID,"Deleted");
+        editProductByStatus(productID, "Deleted");
     }
 
     @Override
@@ -550,7 +549,7 @@ public class ProductImplementation implements ProductInterface {
             ResultSet result = ps.executeQuery();
             ProductBean bean = new ProductBean();
             while (result.next()) {
-                bean.setProductID(result.getInt("product.productID"));
+                bean.setProductID(result.getInt("productID"));
                 bean.setTitle(result.getString("title"));
                 bean.setSummary(result.getString("summary"));
                 bean.setPrice(result.getFloat("price"));
@@ -577,16 +576,16 @@ public class ProductImplementation implements ProductInterface {
             ResultSet result = ps.executeQuery();
             BookBean bean = new BookBean();
 
-            bean.setProductID(result.getInt("book.productID"));
-            bean.setAuthor(result.getString("author"));
-            bean.setProductID(result.getInt("product.productID"));
-            bean.setTitle(result.getString("title"));
-            bean.setSummary(result.getString("summary"));
-            bean.setPrice(result.getFloat("price"));
-            bean.setStock(result.getFloat("stock"));
-            bean.setPstatus(result.getString("pstatus"));
-            bean.setCategory(result.getString("category"));
-
+            while (result.next()) {
+                bean.setProductID(result.getInt("product.productID"));
+                bean.setAuthor(result.getString("author"));
+                bean.setTitle(result.getString("title"));
+                bean.setSummary(result.getString("summary"));
+                bean.setPrice(result.getFloat("price"));
+                bean.setStock(result.getFloat("stock"));
+                bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
+            }
             return bean;
         } catch (SQLException ex) {
             Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -599,28 +598,29 @@ public class ProductImplementation implements ProductInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "SELECT * FROM mag, product WHERE product.productID = ? and book.productID = product.productID";
+            String query = "SELECT * FROM cd, product WHERE product.productID = ? and cd.productID = product.productID";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
             CDBean bean = new CDBean();
-
-            bean.setProductID(result.getInt("cd.productID"));
-            bean.setArtist(result.getString("artist"));
-            bean.setProductID(result.getInt("product.productID"));
-            bean.setTitle(result.getString("title"));
-            bean.setSummary(result.getString("summary"));
-            bean.setPrice(result.getFloat("price"));
-            bean.setStock(result.getFloat("stock"));
-            bean.setPstatus(result.getString("pstatus"));
-            bean.setCategory(result.getString("category"));
-
+            
+            while (result.next()) {
+                bean.setProductID(result.getInt("product.productID"));
+                bean.setArtist(result.getString("artist"));
+                bean.setTitle(result.getString("title"));
+                bean.setSummary(result.getString("summary"));
+                bean.setPrice(result.getFloat("price"));
+                bean.setStock(result.getFloat("stock"));
+                bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
+            }
             return bean;
         } catch (SQLException ex) {
             Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+
     }
 
     @Override
@@ -628,23 +628,23 @@ public class ProductImplementation implements ProductInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "SELECT * FROM dvd, product WHERE product.productID = ? and book.productID = product.productID";
+            String query = "SELECT * FROM dvd, product WHERE product.productID = ? and dvd.productID = product.productID";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
             DvdBean bean = new DvdBean();
-
-            bean.setProductID(result.getInt("book.productID"));
-            bean.setDirector(result.getString("author"));
-            bean.setProductID(result.getInt("product.productID"));
-            bean.setTitle(result.getString("title"));
-            bean.setSummary(result.getString("summary"));
-            bean.setPrice(result.getFloat("price"));
-            bean.setStock(result.getFloat("stock"));
-            bean.setPstatus(result.getString("pstatus"));
-            bean.setCategory(result.getString("category"));
-
+            while (result.next()) {
+                bean.setProductID(result.getInt("dvd.productID"));
+                bean.setDirector(result.getString("director"));
+                bean.setProductID(result.getInt("product.productID"));
+                bean.setTitle(result.getString("title"));
+                bean.setSummary(result.getString("summary"));
+                bean.setPrice(result.getFloat("price"));
+                bean.setStock(result.getFloat("stock"));
+                bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
+            }
             return bean;
         } catch (SQLException ex) {
             Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -657,24 +657,24 @@ public class ProductImplementation implements ProductInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "SELECT * FROM dvd, product WHERE product.productID = ? and book.productID = product.productID";
+            String query = "SELECT * FROM mag, product WHERE product.productID = ? and mag.productID = product.productID";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
 
             ResultSet result = ps.executeQuery();
             MagBean bean = new MagBean();
-
-            bean.setProductID(result.getInt("book.productID"));
-            bean.setVolNo(result.getInt("volNo"));
-            bean.setIssueNo(result.getInt("issueNo"));
-            bean.setProductID(result.getInt("product.productID"));
-            bean.setTitle(result.getString("title"));
-            bean.setSummary(result.getString("summary"));
-            bean.setPrice(result.getFloat("price"));
-            bean.setStock(result.getFloat("stock"));
-            bean.setPstatus(result.getString("pstatus"));
-            bean.setCategory(result.getString("category"));
-
+            while (result.next()) {
+                bean.setProductID(result.getInt("mag.productID"));
+                bean.setVolNo(result.getInt("volNo"));
+                bean.setIssueNo(result.getInt("issueNo"));
+                bean.setProductID(result.getInt("product.productID"));
+                bean.setTitle(result.getString("title"));
+                bean.setSummary(result.getString("summary"));
+                bean.setPrice(result.getFloat("price"));
+                bean.setStock(result.getFloat("stock"));
+                bean.setPstatus(result.getString("pstatus"));
+                bean.setCategory(result.getString("category"));
+            }
             return bean;
         } catch (SQLException ex) {
             Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -705,11 +705,6 @@ public class ProductImplementation implements ProductInterface {
             Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-    @Override
-    public void editProductByStatus(int id, int pstatus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

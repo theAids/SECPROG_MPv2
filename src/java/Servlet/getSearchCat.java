@@ -55,7 +55,7 @@ public class getSearchCat extends HttpServlet {
                 for(i=1; i<=products.size(); i++){
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
-                    out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                    out.append("<td><a href='getProductInfo?id="+products.get(i-1).getProductID()+"'>").append(products.get(i-1).getTitle()).append("</a></td>");
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
@@ -75,7 +75,7 @@ public class getSearchCat extends HttpServlet {
                     
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
-                    out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                     out.append("<td><a href='getProductInfo?id="+products.get(i-1).getProductID()+"'>").append(products.get(i-1).getTitle()).append("</a></td>");
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
@@ -91,7 +91,7 @@ public class getSearchCat extends HttpServlet {
                 for(i=1; i<=products.size(); i++){
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
-                    out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                     out.append("<td><a href='getProductInfo?id="+products.get(i-1).getProductID()+"'>").append(products.get(i-1).getTitle()).append("</a></td>");
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){
@@ -109,7 +109,7 @@ public class getSearchCat extends HttpServlet {
                 for(i=1; i<=products.size(); i++){
                     out.append("<tr>");
                     out.append("<td>").append(Integer.toString(i)).append("</td>");
-                    out.append("<td><a id='link' onClick='link()'>").append(products.get(i-1).getTitle()).append("</a></td>");
+                     out.append("<td><a href='getProductInfo?id="+products.get(i-1).getProductID()+"'>").append(products.get(i-1).getTitle()).append("</a></td>");
                     out.append("<td>").append(products.get(i-1).getCategory()).append("</td>");
                     out.append("<td>").append(Float.toString(products.get(i-1).getPrice())).append("</td>");
                     if(products.get(i-1).getPstatus().equals("Available")){

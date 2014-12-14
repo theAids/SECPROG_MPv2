@@ -254,4 +254,21 @@ public class OrderImplementation implements OrderInterface{
         }
         return null;
     }
+
+    @Override
+    public void editOrderStatus(int orderID, String status) {
+         try {
+            dBConnectionFactory = DBConnectionFactory.getInstance();
+            connection = dBConnectionFactory.getConnection();
+            String query = "UPDATE foo_order SET status = ? WHERE orderID = ?";
+            PreparedStatement prep = connection.prepareStatement(query);
+
+            prep.setString(1, status);
+            prep.setInt(2, orderID);
+
+            prep.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
