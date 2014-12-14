@@ -27,25 +27,17 @@ import org.joda.time.LocalDateTime;
 public class OrderImplementation implements OrderInterface{
     private Connection connection;
     private DBConnectionFactory dBConnectionFactory;
+    
+    
     @Override
-    public void addCustomerOrder(OrderBean bean) {
+    public void addCustomerOrder(int userid) {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
             String query = "INSERT INTO foo_order(userID) VALUES (?)";
             PreparedStatement prep = connection.prepareStatement(query);
 
-            //java.util.Date utilDate = new java.util.Date();
-            //java.sql.Timestamp sq = new java.sql.Timestamp(utilDate.getTime());
-            //SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-            
-           //  LocalDateTime ldt  = LocalDateTime.now();
-           // Timestamp ts = new Timestamp(ldt.toDate().getTime());
-         
-            //prep.setInt(1, bean.getOrderID());
-            //prep.setTimestamp(1, ts);
-            prep.setInt(1, bean.getUserID());
-
+            prep.setInt(1, userid);
             prep.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,5 +223,35 @@ public class OrderImplementation implements OrderInterface{
         {
             Logger.getLogger(OrderImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public OrderBean getCart(int userid) {
+        try 
+        {
+           dBConnectionFactory = DBConnectionFactory.getInstance();
+            connection = dBConnectionFactory.getConnection();
+            String query = "SELECT * FROM foo_order WHERE userID = ? and status = ?"; 
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            ps.setInt(1, userid);
+            ps.setString(2, "Cart");
+            ResultSet resultSet = ps.executeQuery();
+            OrderBean bean = new OrderBean();
+            while (resultSet.next()) 
+            {
+                
+                bean.setOrderID(resultSet.getInt("orderID"));
+                bean.setOrderDate(new LocalDateTime(resultSet.getTimestamp("orderDate")));
+                bean.setUserID(resultSet.getInt("userID"));
+                bean.setStatus(resultSet.getString("status"));
+            }
+            return bean;
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(OrderImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

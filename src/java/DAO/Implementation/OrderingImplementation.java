@@ -25,18 +25,21 @@ public class OrderingImplementation implements OrderingInterface{
     private Connection connection;
     private DBConnectionFactory dBConnectionFactory;
     
+    
+    @Override
     public void addOrderProduct(OrderingBean bean) 
     {
         try
         {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "INSERT INTO ordering(productID,price,quantity) VALUES (?,?,?)";
+            String query = "INSERT INTO ordering(orderID,productID,price,quantity) VALUES (?,?,?,?)";
             PreparedStatement prep = connection.prepareStatement(query);
             
-            prep.setInt(1, bean.getProductID());
-            prep.setFloat(2, bean.getPrice());
-            prep.setFloat(3, bean.getQuantity());
+            prep.setInt(1, bean.getOrderID());
+            prep.setInt(2, bean.getProductID());
+            prep.setFloat(3, bean.getPrice());
+            prep.setFloat(4, bean.getQuantity());
              
             prep.executeUpdate();
             /*

@@ -15,11 +15,12 @@ import java.util.Date;
  * @author kimberly
  */
 public interface OrderInterface {
-    public void addCustomerOrder(OrderBean bean);
+    public void addCustomerOrder(int userid);
     public ArrayList<OrderBean> getAllCustomerOrders();
    // public OrderBean getCustomerOrder(int id); //ArrayList<OrderBean>
     public ArrayList<OrderBean> getCustomerOrder(int id);
     public ArrayList<OrderBean> getOrdersByDate(Date date);
     public ArrayList<OrderBean> getTodayOrders();
+    public OrderBean getCart(int userid);
     public void deleteOrder(int orderID);
 }
