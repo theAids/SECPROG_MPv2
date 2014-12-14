@@ -21,12 +21,14 @@
         <link href="scss/stylesheets/screen.css" rel="stylesheet">
         <link href="css/bootstrap-table.css" rel="stylesheet">
         <link href="css/datepicker.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
         
         
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-table.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         
         <script>
             function loadXMLDoc()
@@ -49,7 +51,32 @@
                     }
                 }
                 //var mensahe = document.getElementById("logs").value;
-                xmlhttp.open("GET","productLog",true);
+                xmlhttp.open("POST","productLog",true);
+                xmlhttp.send();
+            }
+            
+            function loadXMLDoc2()
+            {
+                var xmlhttp;
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        
+                        var x = document.getElementById("datepicker").innerHTML;
+                        document.getElementById("logs").innerHTML = xmlhttp.responseText+ x;
+                    }
+                }
+                var date = document.getElementById("datepicker").value;
+                xmlhttp.open("POST","productLogSpecDate?date="+date,true);
                 xmlhttp.send();
             }
         </script>
@@ -87,20 +114,14 @@ $(function () {
             </div>
         </nav>
         <div class="container">
-    <center><h3><span class="label label-default">Product Logs</span></h3></center>
-    <center>
-    <label>Select Date: </label>
-  
-<div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-    <input class="form-control" type="text"/>
-    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-</div>
-
-
-        
-        <button id ="date_select" type="submit" class="btn btn-default" onclick="loadXMLDoc()">View All Product Logs</button></center>
-    
-   
+        <center><h3><span class="label label-default">Product Logs</span></h3></center>
+        <center>
+             <label>Select Date: </label>
+             <input type="text" id="datepicker">
+             <button id ="date_select" type="submit" class="btn btn-default" onclick="loadXMLDoc2()">View Product</button>
+             <button id ="date_select" type="submit" class="btn btn-default" onclick="loadXMLDoc()">View All Product Logs</button>
+        </center>
+        <br/>
     
     <table id="logs" class="table table-striped table-bordered display" data-toggle="table" data-cache="false" data-height="400">
      <thead>

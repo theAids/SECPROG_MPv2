@@ -5,13 +5,11 @@
  */
 package Servlet;
 
-import Bean.OrderBean;
-import Bean.OrderingBean;
 import Bean.ProductBean;
+import Bean.ProductLogBean;
 import Bean.UserBean;
-import DAO.Implementation.OrderImplementation;
-import DAO.Implementation.OrderingImplementation;
 import DAO.Implementation.ProductImplementation;
+import DAO.Implementation.ProductlogImplementation;
 import DAO.Implementation.UserDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,13 +19,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author kimberly
  */
-@WebServlet(name = "salesReport", urlPatterns = {"/salesReport"})
-public class salesReport extends HttpServlet {
+@WebServlet(name = "productLogSpecDate", urlPatterns = {"/productLogSpecDate"})
+public class productLogSpecDate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,21 +42,23 @@ public class salesReport extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //String message = request.getParameter("message");
-            float total = 0;
+            String date = request.getParameter("date");
+            HttpSession session = request.getSession();
             String title = null;
-            OrderImplementation order = new OrderImplementation();
-            OrderingImplementation ordering = new OrderingImplementation();
+            //String date = "12/09/2014";//request.getParameter("date");
+            ProductlogImplementation plog = new ProductlogImplementation();
             ProductImplementation product = new ProductImplementation();
             UserDAOImplementation user = new UserDAOImplementation();
-            ArrayList<OrderBean> orderbean = new ArrayList<OrderBean>();
-            ArrayList<OrderingBean> orderingbean = new ArrayList<OrderingBean>();
             ArrayList<ProductBean> productbean = new ArrayList<ProductBean>();
+            ArrayList<ProductLogBean> productlog = new ArrayList<ProductLogBean>();
             ArrayList<UserBean> userbean = new ArrayList<UserBean>();
 
-            orderbean = order.getAllCustomerOrders();
-            orderingbean = ordering.getAllOrderProducts();
+            ProductLogBean bean = new ProductLogBean();
+            ProductBean pbean = new ProductBean();
+            UserBean ubean = new UserBean();
+
             productbean = product.getAllProducts();
+            productlog = plog.getAllProductLogs();
             userbean = user.getAllUser();
 
             out.println("<thead>");
@@ -65,52 +66,39 @@ public class salesReport extends HttpServlet {
             out.println("<th>Log Date and Timestamp</th>");
             out.println("<th>Username</th>");
             out.println("<th>Product Name</th>");
-            out.println("<th>Quantity</th>");
-            out.println("<th>Price</th>");
-            out.println("<th>Total Sales</th>");;
+            out.println("<th>Activity</th>");
             out.println("</tr>");
 
             out.println("<tr>");
             out.println("<th>Log Date and Timestamp</th>");
             out.println("<th>Username</th>");
             out.println("<th>Product Name</th>");
-            out.println("<th>Quantity</th>");
-            out.println("<th>Price</th>");
-            out.println("<th>Total Sales</th>");
+            out.println("<th>Activity</th>");
             out.println("</tr>");
             out.println("</thead>");
 
-            for (int i = 0; i < orderingbean.size(); i++) {
-                out.print("<tr>");
-                for (int j = 0; j < orderbean.size(); j++) {
-                    if (orderingbean.get(i).getOrderID() == orderbean.get(j).getOrderID()) {
-                        out.print("<td>" + orderbean.get(j).getOrderDate().toString("MM/dd/yyyy HH:mm:ss") + "</td>");
-
-                        for (int k = 0; k < userbean.size(); k++) {
-                            if (orderbean.get(j).getUserID() == userbean.get(k).getUserID()) {
-                                out.print("<td>" + userbean.get(k).getUsername() + "</td>");
-                            }
+            for (int i = 0; i < productlog.size(); i++) {
+                if (date.equals(productlog.get(i).getLogDate().toString("MM/dd/yyyy"))) {
+                    out.print("<tr>");
+                    out.print("<td>" + productlog.get(i).getLogDate().toString("MM/dd/yyyy HH:mm:ss") + "</td>");
+                    //out.print("<td>"+productlog.get(i).getUserID()+"</td>");
+                    for (int j = 0; j < userbean.size(); j++) {
+                        if (productlog.get(i).getUserID() == userbean.get(j).getUserID()) {
+                            title = userbean.get(j).getUsername();
                         }
                     }
-                }
-                for (int j = 0; j < productbean.size(); j++) {
-                    if (orderingbean.get(i).getProductID() == productbean.get(j).getProductID()) {
-                        out.print("<td>" + productbean.get(j).getTitle() + "</td>");
+                    out.println("<td>" + title + "</td>");
+                    //out.print("<td>"+productlog.get(i).getProductID()+"</td>");
+                    for (int j = 0; j < productbean.size(); j++) {
+                        if (productlog.get(i).getProductID() == productbean.get(j).getProductID()) {
+                            title = productbean.get(j).getTitle();
+                        }
                     }
+                    out.print("<td>" + title + "</td>");
+                    out.print("<td>" + productlog.get(i).getActivity() + "</td>");
+                    out.print("</tr>");
                 }
-                out.print("<td>" + orderingbean.get(i).getQuantity() + "</td>");
-                total = total + orderingbean.get(i).getPrice();
-                out.print("<td>" + orderingbean.get(i).getPrice() + "</td>");
-
-                //out.print("<td>"+total+"</td>");    
-                out.print("</tr>");
             }
-            out.print("<td></td>");
-            out.print("<td></td>");
-            out.print("<td></td>");
-            out.print("<td></td>");
-            out.print("<td></td>");
-            out.print("<td>" + total + "</td>");
         } finally {
             out.close();
         }

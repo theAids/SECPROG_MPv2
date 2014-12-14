@@ -51,7 +51,31 @@
                     }
                 }
                 //var mensahe = document.getElementById("logs").value;
-                xmlhttp.open("GET","signLog",true);
+                xmlhttp.open("POST","signLog",true);
+                xmlhttp.send();
+            }
+            function loadXMLDoc2()
+            {
+                var xmlhttp;
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        
+                        var x = document.getElementById("datepicker").innerHTML;
+                        document.getElementById("logs").innerHTML = xmlhttp.responseText+ x;
+                    }
+                }
+                var date = document.getElementById("datepicker").value;
+                xmlhttp.open("POST","signLogSpecDate?date="+date,true);
                 xmlhttp.send();
             }
         </script>
@@ -88,12 +112,13 @@ $(function () {
                 </div>
             </div>
         </nav>
-        
+    <div class="container">    
     <center><h3><span class="label label-default">Sign Logs</span></h3></center>
     <center>
     <label>Select Date: </label>
   
 <input type="text" id="datepicker">
+        <button id ="date_select" type="submit" class="btn btn-default" onclick="loadXMLDoc2()">View Sign Logs</button>
         <button id ="date_select" type="submit" class="btn btn-default" onclick="loadXMLDoc()">View All Sign Logs</button></center>
     <table id="logs" class="table table-striped table-bordered display" data-toggle="table" data-cache="false" data-height="400">
      <thead>
@@ -104,5 +129,6 @@ $(function () {
         </tr>
     </thead>
     </table>
+    </div>
     </body>
 </html>
