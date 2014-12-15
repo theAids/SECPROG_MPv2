@@ -22,16 +22,17 @@
         user = (UserBean) session.getAttribute("client_user");
     } else {
         response.sendRedirect("Unauthorized.jsp");
-        
+
     }
 
     ArrayList<OrderingBean> cart = new ArrayList<OrderingBean>();
-    //cart = (ArrayList<OrderingBean>) session.getAttribute("cart");
+    cart = (ArrayList<OrderingBean>) session.getAttribute("cart");
 
     float total = 0;
-
-    for (OrderingBean bean : cart) {
-        total += bean.getPrice() * bean.getQuantity();
+    if (cart != null) {
+        for (OrderingBean bean : cart) {
+            total += bean.getPrice() * bean.getQuantity();
+        }
     }
 %>
 <!DOCTYPE html>

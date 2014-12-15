@@ -4,8 +4,18 @@
     Author     : aids
 --%>
 
+<%@page import="Bean.UserBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String token = (String) session.getAttribute("client_token");
+
+        if (token != null) {
+            response.sendRedirect("SearchPage.jsp");
+        } 
+        
+        
+%>
 <html lang="en">
     <head>
         <meta charset="utf-8">

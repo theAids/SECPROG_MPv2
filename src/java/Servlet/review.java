@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Bean.ProductBean;
 import Bean.ReviewBean;
 import DAO.Implementation.ReviewImplementation;
 import DAO.Interface.ReviewInterface;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,19 +39,24 @@ public class review extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+           HttpSession session=request.getSession();
            ReviewInterface reviewIM = new ReviewImplementation();
            ReviewBean review = new ReviewBean();
            
-           int prodID = Integer.parseInt(request.getParameter("productID"));
+           //int prodID = Integer.parseInt(request.getParameter("productID"));
+           ProductBean prod = new ProductBean();
+           prod = (ProductBean) session.getAttribute("product");
            int userID = Integer.parseInt(request.getParameter("userID"));
            String rev = request.getParameter("review");
            
            
-           review.setProductID(prodID);
+           review.setProductID(prod.getProductID());
            review.setUserID(userID);
            review.setReview(rev);
            
            reviewIM.addCustomerProductReview(review);
+           
+           response.sendRedirect("Product.jsp");
            
         }
     }

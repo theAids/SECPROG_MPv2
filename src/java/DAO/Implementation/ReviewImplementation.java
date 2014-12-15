@@ -124,9 +124,10 @@ public class ReviewImplementation implements ReviewInterface{
             
             ResultSet resultSet = ps.executeQuery();
              ArrayList<ReviewBean> beans = new ArrayList<ReviewBean>();
+             ReviewBean bean;
             while (resultSet.next()) 
             {
-                ReviewBean bean = new ReviewBean();
+                bean = new ReviewBean();
                 bean.setReviewID(resultSet.getInt("reviewID"));     
                 bean.setReview(resultSet.getString("review"));   
                 bean.setReviewDate(new LocalDateTime(resultSet.getTimestamp("reviewDate")));

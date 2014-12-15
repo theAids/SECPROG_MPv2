@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String token = (String) session.getAttribute("client_token");
+
+        if (token != null) {
+            response.sendRedirect("SearchPage.jsp");
+        } 
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>

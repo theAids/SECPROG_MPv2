@@ -5,12 +5,12 @@
  */
 package Servlet;
 
-import Bean.OrderBean;
-import Bean.OrderingBean;
 import Bean.ProductBean;
+import Bean.ReviewBean;
 import Bean.UserBean;
-import DAO.Implementation.OrderImplementation;
-import DAO.Implementation.OrderingImplementation;
+import DAO.Implementation.ProductImplementation;
+import DAO.Implementation.ReviewImplementation;
+import DAO.Implementation.UserDAOImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author aids
  */
-@WebServlet(name = "addtoCart", urlPatterns = {"/addtoCart"})
-public class addtoCart extends HttpServlet {
+@WebServlet(name = "getReview", urlPatterns = {"/getReview"})
+public class getReview extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,54 +40,29 @@ public class addtoCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-
+        PrintWriter out = response.getWriter();
+        try {
             HttpSession session = request.getSession();
             
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            ProductBean product = (ProductBean) session.getAttribute("product");
-
-            UserBean user = (UserBean) session.getAttribute("client_user");
-
-            OrderImplementation order = new OrderImplementation();
-            OrderingImplementation cart = new OrderingImplementation();
-
-            ArrayList<OrderBean> purchases = new ArrayList<OrderBean>();
-
-            purchases = order.getCustomerOrder(user.getUserID());
-
-            OrderingBean prod = new OrderingBean();
-            OrderBean trans = new OrderBean() ;
-
-
-           
-            if(order.getCart(user.getUserID()).getStatus()==null){
-                order.addCustomerOrder(user.getUserID());
-                
+            ReviewImplementation revIM = new ReviewImplementation();
+            UserDAOImplementation user = new UserDAOImplementation();
+            UserBean usr;
+            ProductBean product = new ProductBean();
+            product = (ProductBean) session.getAttribute("product");
+            
+            ArrayList<ReviewBean> review = new ArrayList<ReviewBean>();
+            review = revIM.getReviewByProductID(product.getProductID());
+            out.append("<br>");
+            for(ReviewBean bean: review){
+                usr = user.getCustomer(bean.getUserID());
+                out.append("<p style='font-style:italic'>"+bean.getReviewDate()+"</p><br>");
+                out.append("<p style='color:blue'>"+usr.getUsername()+"</p><br>");
+                out.append("<p>&nbsp&nbsp&nbsp&nbsp"+bean.getReview()+"</p><br><br>");
             }
-           
-            trans = order.getCart(user.getUserID());
-            
-            prod.setOrderID(trans.getOrderID());
-            prod.setPrice(product.getPrice());
-            prod.setQuantity(quantity);
-            prod.setProductID(product.getProductID());
-            
-            cart.addOrderProduct(prod);
             
             
-         
-            
-            ArrayList<OrderingBean> items = new ArrayList<OrderingBean>();
-            
-            items = cart.getOrderByIDProducts(trans.getOrderID());
-            
-            purchases = order.getCustomerOrder(user.getUserID());
-            
-            session.setAttribute("cart", items);
-            session.setAttribute("trans", purchases);
-            response.sendRedirect("Cart.jsp");
-
+        }finally {            
+            out.close();
         }
     }
 
