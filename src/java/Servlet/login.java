@@ -123,21 +123,37 @@ public class login extends HttpServlet {
                     acl.setADD_BOOK(1);
                     acl.setDELETE_BOOK(1);
                     acl.setEDIT_BOOK(1);
+                    userSession.setAttribute("acl", acl);
+                    //loggedInUser.addSession(userSession);
+                    response.sendRedirect("BookManagement.jsp");
+                    return;
                 } else if (type.equals("CD")) {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setADD_CD(1);
                     acl.setDELETE_CD(1);
                     acl.setEDIT_CD(1);
+                    userSession.setAttribute("acl", acl);
+                    //loggedInUser.addSession(userSession);
+                    response.sendRedirect("CDManagement.jsp");
+                    return;
                 } else if (type.equals("DVD")) {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setADD_DVD(1);
                     acl.setDELETE_DVD(1);
                     acl.setEDIT_DVD(1);
+                    userSession.setAttribute("acl", acl);
+                    //loggedInUser.addSession(userSession);
+                    response.sendRedirect("DVDManagement.jsp");
+                    return;
                 } else if (type.equals("Magazine")) {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setADD_MAGAZINE(1);
                     acl.setDELETE_MAGAZINE(1);
                     acl.setEDIT_MAGAZINE(1);
+                    userSession.setAttribute("acl", acl);
+                   // loggedInUser.addSession(userSession);
+                    response.sendRedirect("MagazineManagement.jsp");
+                    return;
                 } else {
                     acl.setLoggedInUser(loggedInUser);
                     acl.setVIEW_FINANCE(1);
@@ -146,7 +162,7 @@ public class login extends HttpServlet {
                 userSession.setAttribute("acl", acl);
                 loggedInUser.addSession(userSession);
 
-                //redirect it to somewhere...
+               // redirect it to somewhere...
                 response.sendRedirect("SearchPage.jsp");
                 return;
             } else {
