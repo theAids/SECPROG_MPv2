@@ -167,7 +167,8 @@ public class ProductImplementation implements ProductInterface {
         try {
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "SELECT * FROM book, product WHERE book.productID = product.productID";
+            String query = "SELECT * FROM book, product WHERE book.productID = product.productID ";
+             //String query = "SELECT * FROM book, product WHERE book.productID = product.productID and pstatus = 'Available'";
             PreparedStatement ps = connection.prepareStatement(query);
             //ps.setString(1, name);
 

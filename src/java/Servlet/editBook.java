@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Servlet;
 
 import Bean.BookBean;
@@ -42,7 +41,7 @@ public class editBook extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         HttpSession session = request.getSession(false); //to ensure that no new session will be created
+        HttpSession session = request.getSession(false); //to ensure that no new session will be created
         String referer = request.getHeader("Referer");
         if (session != null) {
             UserBean user = (UserBean) session.getAttribute("client_user");
@@ -56,52 +55,60 @@ public class editBook extends HttpServlet {
                 ProductBean pb = new ProductBean();
                 BookBean db = new BookBean();
                 ProductLogBean plb = new ProductLogBean();
-              
+
                 //get which row
                 String orig = request.getParameter("origBooktitle");
                 pb.setProductID(pi.getProductByTitle(orig).getProductID());
-                //checks for changes
-                String title = request.getParameter("editBooktitle");
-                if (title.length() > 0) {
-                    pi.editProductByTitle(pb.getProductID(), title);
-                    plb.setActivity("E- Book");
-                    pli.addProductLog(user, pb, plb);
+                if (pb.getProductID() != 0) {
+                    //checks for changes
+                    String title = request.getParameter("editBooktitle");
+                    if (title.length() > 0) {
+                        pi.editProductByTitle(pb.getProductID(), title);
+                        plb.setActivity("E- Book");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    String summary = request.getParameter("editBookSummary");
+                    if (summary.length() > 0) {
+                        pi.editProductBySummary(pb.getProductID(), summary);
+                        plb.setActivity("E- BooSUM");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    String price = request.getParameter("editBookPrice");
+                    if (price.length() > 0) {
+                        pi.editProductByPrice(pb.getProductID(), Float.parseFloat(price));
+                        plb.setActivity("E- BooPRi");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    String stock = request.getParameter("editBookStock");
+                    if (stock.length() > 0) {
+                        pi.editProductByStock(pb.getProductID(), Float.parseFloat(stock));
+                        plb.setActivity("E- BooSto");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    String status = request.getParameter("editBookPstatus");
+                    if (status.length() > 0) {
+                        pi.editProductByStatus(pb.getProductID(), status);
+                        plb.setActivity("E- BooSta");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    String author = request.getParameter("editBookAuthor");
+                    if (author.length() > 0) {
+                        pi.editBookByAuthor(pb.getProductID(), author);
+                        plb.setActivity("E- BooAut");
+                        pli.addProductLog(user, pb, plb);
+                    }
+                    try (PrintWriter out = response.getWriter()) {
+                        out.println("edited successfully");
+                        //response.sendRedirect("BookManagement.jsp");
+                    }
                 }
-                String summary = request.getParameter("editBookSummary");
-                if (summary.length() > 0) {
-                    pi.editProductBySummary(pb.getProductID(), summary);
-                    plb.setActivity("E- BooSUM");
-                    pli.addProductLog(user, pb, plb);
-                }
-                String price = request.getParameter("editBookPrice");
-                if (price.length() > 0) {
-                    pi.editProductByPrice(pb.getProductID(), Float.parseFloat(price));
-                    plb.setActivity("E- BooPRi");
-                    pli.addProductLog(user, pb, plb);
-                }
-                String stock = request.getParameter("editBookStock");
-                if (stock.length() > 0) {
-                    pi.editProductByStock(pb.getProductID(), Float.parseFloat(stock));
-                    plb.setActivity("E- BooSto");
-                    pli.addProductLog(user, pb, plb);
-                }
-                String status = request.getParameter("editBookPstatus");
-                if (status.length() > 0) {
-                    pi.editProductByStatus(pb.getProductID(), status);
-                    plb.setActivity("E- BooSta");
-                    pli.addProductLog(user, pb, plb);
-                }
-                String author = request.getParameter("editBookAuthor");
-                if (author.length() > 0) {
-                    pi.editBookByAuthor(pb.getProductID(), author);
-                    plb.setActivity("E- BooAut");
-                    pli.addProductLog(user, pb, plb);
-                }
+                else{
                 try (PrintWriter out = response.getWriter()) {
-                    out.println("edited successfully");
-                    //response.sendRedirect("BookManagement.jsp");
+                        out.println("No such book exist");
+                        //response.sendRedirect("BookManagement.jsp");
+                    }
                 }
-
+                
             } else {
                 response.sendRedirect("Unauthorized.jsp");
             }
@@ -114,7 +121,7 @@ public class editBook extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet editBook</title>");            
+            out.println("<title>Servlet editBook</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet editBook at " + request.getContextPath() + "</h1>");
