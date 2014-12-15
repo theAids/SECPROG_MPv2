@@ -47,9 +47,11 @@
         UserDAOInterface userIM = new UserDAOImplementation();
         OrderInterface orderIM = new OrderImplementation();
         OrderingInterface orderingIM = new OrderingImplementation();
+       
         ArrayList<Integer> itemsBought;
         ArrayList<OrderBean> customerOrders;
         ArrayList<OrderingBean> orderProducts;
+        OrderBean orderbean = new OrderBean();
 
         String token = (String) session.getAttribute("client_token");
         UserBean user;
@@ -111,7 +113,7 @@
                     if (!itemsBought.contains(ord.getProductID())) {
                         itemsBought.add(ord.getProductID());
                     }
-
+                    
                     if (product.getProductID() == ord.getProductID()) {
                         isBought = true;
                     }
@@ -139,7 +141,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Transactions</a></li>
+                                <li><a href="Transactions.jsp">Transactions</a></li>
                                 <li><a href="#">Logout</a></li>
                             </ul>
                         </li>
@@ -165,6 +167,7 @@
                 <br>
                 <br>
                 <hr>
+                
                 <div id="warning"></div>
                 <form id="addCart" method="POST" action="addtoCart" style="display:inline">
                     <label>Quantity:</label>
@@ -174,7 +177,6 @@
                 </form>
                 <a href="SearchPage.jsp" class="btn btn-success " style="display: inline">Back</a>
 
-                <div></div>
                 <label>Review</label>
                 <div id ="reviewArea">
                     <span id="rmessage"></span>
@@ -191,7 +193,10 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div><br>
+                <hr>
+                <h4>Reviews</h4>
+                <div id="reviews"></div>
             </div>
         </div>
 
@@ -201,6 +206,31 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.10.min.js"></script>
         <script>
+            
+            function loadReview() {
+                var xmlhttp;
+                
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                    {
+                        //$('#reviewArea').text(xmlhttp.responseText);
+                        document.getElementById("reviews").innerHTML = xmlhttp.responseText;
+                    }
+                }
+
+                xmlhttp.open("POST", "getReview", true);
+                xmlhttp.send();
+            }
+
 
             $("#addCart").submit(function (event) {
                 var q = $('[name=quantity]').val();
@@ -210,11 +240,13 @@
                 }
             });
 
-            function buy() {
-                window.location = "Creditcard.jsp";
-            }
+            
 
             $(document).ready(function () {
+                
+                loadReview();
+                
+                
                 $("#userID").val("<%= user.getUserID()%>");
                 /*NOTE: */
                 $("#productID").val("<%= user.getUserID()%>"); //pakiFILL UP

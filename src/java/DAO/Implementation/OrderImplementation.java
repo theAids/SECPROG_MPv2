@@ -81,7 +81,7 @@ public class OrderImplementation implements OrderInterface{
             dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
             String query = "SELECT * FROM foo_order WHERE userID = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
+            PreparedStatetement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
             
             ResultSet resultSet = ps.executeQuery();
@@ -107,10 +107,11 @@ public class OrderImplementation implements OrderInterface{
         {
            dBConnectionFactory = DBConnectionFactory.getInstance();
             connection = dBConnectionFactory.getConnection();
-            String query = "SELECT * FROM foo_order WHERE userID = ?"; 
+            String query = "SELECT * FROM foo_order WHERE userID = ? and status = ?"; 
             PreparedStatement ps = connection.prepareStatement(query);
             
             ps.setInt(1, id);
+            ps.setString(2, "sold");
             
             ResultSet resultSet = ps.executeQuery();
             ArrayList<OrderBean> beans = new ArrayList<OrderBean>();
@@ -235,7 +236,7 @@ public class OrderImplementation implements OrderInterface{
             PreparedStatement ps = connection.prepareStatement(query);
             
             ps.setInt(1, userid);
-            ps.setString(2, "Cart");
+            ps.setString(2, "cart");
             ResultSet resultSet = ps.executeQuery();
             OrderBean bean = new OrderBean();
             while (resultSet.next()) 
