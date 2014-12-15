@@ -1,5 +1,6 @@
 
 
+import Bean.AdminBean;
 import Bean.BookBean;
 import Bean.CustomerBean;
 import Bean.DvdBean;
@@ -46,9 +47,15 @@ public class Driver {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         
-       
+        UserDAOInterface userIM = new UserDAOImplementation();
+        //SignlogInterface signlogIM = new SignlogImplementation();
+        ArrayList<UserBean> aUsers = userIM.getAllUser();
+        UserBean u = userIM.getCustomer("aidsperez");
         
       
+       //userIM.unlockUser(u.getUsername());
+        
+        /*
         UserDAOInterface userIM = new UserDAOImplementation();
         SignlogInterface signlogIM = new SignlogImplementation();
         ArrayList<UserBean> aUsers = userIM.getAllUser();
@@ -57,7 +64,7 @@ public class Driver {
         System.out.println(u.getCreated());
         
         userIM.unlockUser(u.getUsername());
-        
+        */
         //for(UserBean u: aUsers){
         //    System.out.println(u.getUsername());
         //}

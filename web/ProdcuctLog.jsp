@@ -21,14 +21,14 @@
         <link href="scss/stylesheets/screen.css" rel="stylesheet">
         <link href="css/bootstrap-table.css" rel="stylesheet">
         <link href="css/datepicker.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
         
         
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-table.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
-        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <script src="js/jquery-ui.js"></script>
         
         <script>
             function loadXMLDoc()
