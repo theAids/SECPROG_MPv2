@@ -64,7 +64,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="Transactions.jsp">Transactions</a></li>
-                                    <li><a href="#">Logout</a></li>
+                                    <li><a href="logout">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>       
@@ -138,12 +138,6 @@
 
     </div>
 
-    <form class="form-horizontal" name="CreateProductJsp" id = "CreateBookJsp" method="post" action = "CreateProducts">
-        <div class="product-choices">
-            <input type="submit" name="CreateBookBtn" id="CreateBookBtn" value="CreateProduct"/>
-        </div>
-    </form>
-
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-1.10.min.js"></script>
@@ -185,6 +179,10 @@
                                 var xmlhttp;
                                 var row;
                                 var item = $('input:text[name=searchbox]').val();
+                                
+                                if(item == ""){
+                                    item = null;
+                                }
 
 
                                 if (window.XMLHttpRequest)

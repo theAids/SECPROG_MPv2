@@ -54,7 +54,7 @@ public class addtoCart extends HttpServlet {
 
             ArrayList<OrderBean> purchases = new ArrayList<OrderBean>();
 
-            purchases = order.getCustomerOrder(user.getUserID());
+           // purchases = order.getCustomerOrder(user.getUserID());
 
             OrderingBean prod = new OrderingBean();
             OrderBean trans = new OrderBean() ;
@@ -85,7 +85,6 @@ public class addtoCart extends HttpServlet {
             purchases = order.getCustomerOrder(user.getUserID());
             
             session.setAttribute("cart", items);
-            session.setAttribute("trans", purchases);
             response.sendRedirect("Cart.jsp");
 
         }

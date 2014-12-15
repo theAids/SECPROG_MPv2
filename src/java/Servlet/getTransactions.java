@@ -7,6 +7,8 @@ package Servlet;
 
 import Bean.OrderBean;
 import Bean.OrderingBean;
+import Bean.UserBean;
+import DAO.Implementation.OrderImplementation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,8 +44,12 @@ public class getTransactions extends HttpServlet {
 
             ArrayList<OrderBean> trans = new ArrayList<>();
             ArrayList<OrderingBean> items = new ArrayList<>();
-            items = (ArrayList<OrderingBean>) session.getAttribute("cart");
-            trans = (ArrayList<OrderBean>) session.getAttribute("trans");
+            
+            OrderImplementation order = new OrderImplementation();
+            UserBean user = (UserBean)session.getAttribute("client_user");
+            
+            trans = order.getCustomerOrder(user.getUserID());
+            
 
             //float total = 0;
 

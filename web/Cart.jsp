@@ -65,8 +65,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=user.getUsername()%></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Transactions</a></li>
-                                <li><a href="#">Logout</a></li>
+                                <li><a href="Transactions.jsp">Transactions</a></li>
+                                <li><a href="logout">Logout</a></li>
                             </ul>
                         </li>
                     </ul>       
